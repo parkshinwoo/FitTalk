@@ -35,7 +35,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 // 예를 들자면 유저의 계정 화면에서 아래쪽에 그 유저의 사진들이 떠야하죠,
 // 사진 데이터를 긁어와서 시간 순서대로 띄워줘야하는데 이때
 // 사진이 반복적으로 그려지는 뷰를 RecyclerView라고 하구요
-// 그 RecyclerView가 프레그먼트에 붙고 이 프레그먼트가 액티비티에 붙는 방식입니다.
+// RecyclerView를 잡는 RecyclerViewAdaptor가 있습니다.
+// 그 RecyclerViewAdaptor가 프레그먼트에 붙고 이 프레그먼트가 액티비티에 붙는 방식입니다.
 // 그리고 recyclerview_item_design_* 파일들은 각 데이터들이 RecyclerView에 뿌려지는 방식을 디자인하는 파일입니다.
 
 // 파이어베이스 클라우드 메세징 기능을 이용해서 백그라운드 푸쉬 알람을 구현하려합니다.

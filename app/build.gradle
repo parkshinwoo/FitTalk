@@ -34,8 +34,18 @@ dependencies {
 
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
+    // 파이어베이스
     implementation 'com.google.firebase:firebase-auth:12.0.1'
+    // 구글 로그인
     implementation 'com.google.android.gms:play-services-auth:12.0.1'
+
+    // 다이얼로그 플로우 연동
+    compile 'ai.api:libai:1.6.12'
+
+    // Json 파싱을 위함
+    implementation 'com.google.code.gson:gson:2.8.5'
+    // API 서버에 요청
+    implementation 'com.squareup.okhttp3:okhttp:3.11.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

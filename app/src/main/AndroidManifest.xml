@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="fourpeopleforcolor.fittalk">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -23,7 +23,7 @@
         <activity android:name=".navigation_activity.ChatbotActivity" />
         <activity android:name=".navigation_activity.CommentActivity" />
         <activity android:name=".navigation_activity.UploadPhotoActivity" />
-        <activity android:name=".navigation_activity.UploadScheduleActivity"></activity>
+        <activity android:name=".navigation_activity.UploadScheduleActivity" />
     </application>
 
 </manifest>

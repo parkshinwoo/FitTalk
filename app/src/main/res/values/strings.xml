@@ -60,8 +60,9 @@
     <string name="update_schedule">업데이트</string>
 
     <!-- Chatbot -->
-    <string name="hint_chatbot">챗봇에게 말을 걸어보세요!</string>
-    <string name="chat">보내기</string>
+    <string name="hint_chatbot">FitTalk에게 말을 걸어보세요!</string>
+    <string name="chat">말걸기</string>
+    <string name="chat_bubble">말풍선</string>
 
     <!-- Toolbar -->
     <string name="back">Back</string>
@@ -69,8 +70,5 @@
     <!-- etc -->
     <item name="visible" type="id" />
     <item name="masked" type="id" />
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
