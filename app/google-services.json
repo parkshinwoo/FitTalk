@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1018322846360",
+    "firebase_url": "https://fittalk-617bd.firebaseio.com",
+    "project_id": "fittalk-617bd",
+    "storage_bucket": "fittalk-617bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018322846360:android:a056cad863a956d2",
+        "android_client_info": {
+          "package_name": "fourpeopleforcolor.fittalk"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018322846360-a9urafegcnt8iku881ropibh3rkps6so.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "fourpeopleforcolor.fittalk",
+            "certificate_hash": "4a7854ed6ab767724310c23623c6aad5753c1247"
+          }
+        },
+        {
+          "client_id": "1018322846360-itq6u2fq5k19gv4noq3eu06hr101j1b6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIiSwP32fkgyDgjEvpS38w91Ck5qBfHsI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018322846360-itq6u2fq5k19gv4noq3eu06hr101j1b6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

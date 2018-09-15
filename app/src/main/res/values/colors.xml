@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="babyPink">#ff81b0</color>
+    <color name="greenTea">#66cdaa</color>
+    <color name="lemon">#fff787</color>
+    <color name="orangePink">#fa8072</color>
+    <color name="melon">#d3ffce</color>
+    <color name="coral">#f6546a</color>
+
+    <color name="purple">#8e1bd8</color>
+    <color name="violet">#7f51be</color>
+
+    <color name="colorPrimary">#ededed</color>
+    <color name="colorPrimaryDark">#e1e1e1</color>
+    <color name="colorLightGray">#f1f1f1</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorDivision">#e0e0e0</color>
+    <color name="colorNavIcon">#1d1d1d</color>
+
+    <color name="colorGoogleSignIn">#d34836</color>
+    <color name="colorGoogleSignInPressed">#b02513</color>
+    <color name="colorEmailSignIn">#009688</color>
+    <color name="colorEmailSignInPressed">#004D40</color>
+</resources>

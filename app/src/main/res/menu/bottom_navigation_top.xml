@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fittalk="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        fittalk:showAsAction="always"
+        android:id="@+id/action_home"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home"></item>
+
+    <item
+        fittalk:showAsAction="always"
+        android:id="@+id/action_search"
+        android:enabled="true"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search"
+        ></item>
+
+
+    <item
+        fittalk:showAsAction="always"
+        android:id="@+id/action_alarm"
+        android:enabled="true"
+        android:icon="@drawable/ic_alarm"
+        android:title="@string/alarm"
+        ></item>
+
+    <item
+        fittalk:showAsAction="always"
+        android:id="@+id/action_account"
+        android:enabled="true"
+        android:icon="@drawable/ic_account"
+        android:title="@string/account"
+        ></item>
+
+
+</menu>

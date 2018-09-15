@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fittalk="http://schemas.android.com/apk/res-auto"
+    >
+
+    <item
+        fittalk:showAsAction="always"
+        android:id="@+id/action_upload_photo"
+        android:enabled="true"
+        android:icon="@drawable/ic_upload_photo"
+        android:title="@string/photo"
+        ></item>
+
+    <item
+        fittalk:showAsAction="always"
+        android:id="@+id/action_upload_schedule"
+        android:enabled="true"
+        android:icon="@drawable/ic_upload_schedule"
+        android:title="@string/schedule"
+        >
+    </item>
+
+    <item
+        fittalk:showAsAction="always"
+        android:id="@+id/action_chatbot"
+        android:enabled="true"
+        android:icon="@drawable/ic_chatbot"
+        android:title="@string/chatbot"
+        ></item>
+
+
+
+</menu>
