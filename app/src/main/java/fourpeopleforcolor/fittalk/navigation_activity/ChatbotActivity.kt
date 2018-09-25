@@ -9,6 +9,10 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.gson.Gson
 import fourpeopleforcolor.fittalk.R
 import fourpeopleforcolor.fittalk.data_trasfer_object.WeatherDTO
@@ -18,6 +22,7 @@ import kotlinx.android.synthetic.main.activity_chatbot.*
 import okhttp3.*
 import java.io.IOException
 import java.text.SimpleDateFormat
+import java.util.*
 
 class ChatbotActivity : AppCompatActivity() {
 
@@ -101,10 +106,11 @@ class ChatbotActivity : AppCompatActivity() {
         // 종류에 따라 필터링을 하는 겁니다.
         when(result?.metadata?.intentName){
 
-            // 메타데이터의 인텐트 이름이 "Weather"일때
+            // 메타데이터의 인텐트 이름이 "Weather"일때 (날씨)
             "Weather" -> {
                 //Weather라는 인텐트를 다이얼로그 플로우에 생성했습니다.
                 //Training phrases(챗봇 훈련어구)에 서울, 용인 등 지역을 등록을 해놨습니다.
+                // 챗봇한테 서울 등을 물어보면 해당 지역의 정식명칭이 파라미터 geo-city로 넘어옵니다.
                 var city = result.parameters["geo-city"]
                 if (city == null){
                     // 사용자가 도시를 언급안했을시 기본값으로 서울의 날씨를 알려줍니다.
@@ -113,6 +119,33 @@ class ChatbotActivity : AppCompatActivity() {
                     weatherMessage(city.asString)
                 }
             }
+
+            // 메타데이터의 인텐트 이름이 "Schedule"일때 (운동 계획)
+            "Schedule" -> {
+                //Schedule이라는 인텐트를 다이얼로그 플로우에 생성했습니다.
+                //훈련어구에 월요일, 화요일 등 요일을 sys.date로 학습시켜놨습니다.
+                //챗봇한테 "화요일" 등으로 요일을 물어보면 파라미터로 date가 넘어옵니다. 2018-09-17 이런 형식으로 넘어오게 됩니다.
+                var date = result?.parameters["date"]?.asString
+                if(date == null){
+                    // 사용자가 요일을 명시하지 않고 질문을 하면 (계획 좀 알려줘)
+                    // date가 null로 넘어옵니다. 이런 경우 오늘을 기준으로 설정해줍니다.
+                    var dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK)
+                    scheduleMessage(dayOfWeek)
+                }else{
+                    // 컴퓨터가 인식할 수 있는 형태로 날짜 형식을 맞춰줍니다.
+                    var dateFromHumanText = dateFormatFromHumanText.parse(date)
+
+                    var cal = Calendar.getInstance()
+                    // 위에서 컴퓨터가 인식할 수 있는 형태로 맞춘 날짜로 캘린더를 셋팅합니다.
+                    cal.time = dateFromHumanText
+
+                    // 요일을 숫자로 만듭니다. 일요일부터 시작하므로 1은 일요일이고 7이 토요일입니다.
+                    var dayOfWeek = cal.get(Calendar.DAY_OF_WEEK)
+
+                    scheduleMessage(dayOfWeek)
+                }
+            }
+
             else -> {
                 // 어느 유형에도 속하지 않을 시 다이얼로그 플로우에 기본 어구로 등록된 말이 출력됩니다.
                 var speech = result?.fulfillment?.speech
@@ -126,7 +159,7 @@ class ChatbotActivity : AppCompatActivity() {
         }
     }
 
-    // 날씨 관련 메세지를 만듭니다.
+    // 날씨에 관련된 챗봇의 답장을 만듭니다.
     fun weatherMessage(city:String){
 
         // city 파라메터로 넘어온걸 url에 붙입니다.
@@ -183,5 +216,81 @@ class ChatbotActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    // 운동계획에 관련된 챗봇의 답장을 만드는 함수입니다.
+    fun scheduleMessage(dayOfWeek: Int?){
+
+        var dayOfWeekText : String? = null
+
+        // 숫자로 넘어온 요일을 다시 텍스트로 만듭니다.
+        when(dayOfWeek){
+            1 -> {
+                dayOfWeekText = "일요일"
+            }
+            2 -> {
+                dayOfWeekText = "월요일"
+            }
+            3 -> {
+                dayOfWeekText = "화요일"
+            }
+            4 -> {
+                dayOfWeekText = "수요일"
+            }
+            5 -> {
+                dayOfWeekText = "목요일"
+            }
+            6 -> {
+                dayOfWeekText = "금요일"
+            }
+            7 -> {
+                dayOfWeekText = "토요일"
+            }
+        }
+
+        // 2018년 9월 25일 팀장 박신우의 개발메모입니다.
+        // 다이얼로그플로우의 fullfillment 기능이 있습니다.
+        // 이 기능으로 챗봇의 동작을 결정하고 제어할 수 있는데요
+        // 이 기능이 node js 기반으로 만들어졌습니다.
+        // node js를 지금 배워가고 있는 단계라서 이 부분은 지금은 코틀린으로 작성했습니다.
+        // 추후 node js 활용법이 익숙해지면 node js로 migration할게요
+
+
+
+
+
+
+
+        // timestamp를 통해 최신순으로 정렬하고 사용자의 uid, 요일에 맞는 데이터를 가져옵니다.
+        // schedules 디렉터리에 접근해서 timestamp(계획이 등록된 시스템 시간)으로 정렬해서 최신순으로 합니다.
+        // 현재 챗봇에게 말을 건 유저의 uid에 해당하는 데이터만 따지고
+        // 사용자가 질문한 요일에 해당하는 데이터만으로 챗봇의 답장 메세지를 구성합니다.
+        FirebaseFirestore.getInstance().collection("schedules").orderBy("timestamp").get().addOnCompleteListener {
+            task: Task<QuerySnapshot> ->
+            if(task.isSuccessful){
+                // timestamp로 orderby 쿼리를 날리면
+                // 계획이 업로드된 시스템 시간을 보고 최신순으로 정렬합니다.
+                // 그 결과가 task.result에 담겨서 반환됩니다.
+                for(result in task.result){
+                    // 운동계획 데이터에는 uid가 있습니다. 현재 챗봇에게 말을 건 uid와 일치하는 데이터만 가져오기 위한 if문입니다.
+                    if(result.data["uid"] == FirebaseAuth.getInstance()?.currentUser!!.uid){
+                        // 챗봇에게 물어본 요일에 해당하는 데이터만 가져오기 위한 if문입니다.
+                        if(result.data["dayOfWeek"] == dayOfWeekText){
+                            // 메세지의 형식을 갖추고 DTO에 넣습니다.
+                            var message = dayOfWeekText + "의 운동 계획은 " + result.data["schedule"] + "입니다!" + "\n" + "당신은 할 수 있어요! 제가 응원할게요"
+                            messageDTOs.add(MessageDTO(false, message))
+                        }
+                    }
+
+                    // 리사이클러뷰 새로고침 및 마지막 위치로 이동
+                    recyclerview.adapter.notifyDataSetChanged()
+                    recyclerview.smoothScrollToPosition(messageDTOs.size - 1)
+
+                }
+            }
+        }
+
+
+
     }
 }
