@@ -44,7 +44,7 @@
     <!-- Add Photo -->
     <string name="upload_image">공유</string>
     <string name="hint_image_content">당신만의 톡톡 튀는 느낌을 표현해보세요!</string>
-    <string name="upload_success">공유 성공</string>
+    <string name="upload_photo_success">공유 성공</string>
     <string name="upload_fail">공유 실패</string>
 
     <!-- Add Schedule -->
@@ -55,9 +55,10 @@
     <string name="fri">금요일</string>
     <string name="sat">토요일</string>
     <string name="sun">일요일</string>
-    <string name="hint_schedule_content">당신의 운동 계획을 적어주세요.</string>
+    <string name="hint_schedule_content">당신의 운동 계획을 적어주세요!</string>
     <string name="upload_schedule">등록</string>
     <string name="update_schedule">업데이트</string>
+    <string name="upload_schedule_success">등록 성공</string>
 
     <!-- Chatbot -->
     <string name="hint_chatbot">FitTalk에게 말을 걸어보세요!</string>

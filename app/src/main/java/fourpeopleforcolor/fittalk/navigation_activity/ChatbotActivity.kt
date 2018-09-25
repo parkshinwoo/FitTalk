@@ -168,7 +168,7 @@ class ChatbotActivity : AppCompatActivity() {
                         // 3시간 동안 침적되는 비의 양
                         var three_hour = item.rain?.three_hour
 
-                        var message = time + " 기준 " + city + "의 기온은 " + temp + "도 입니다! " + "습도는 " + humidity + "% 구요! " + "풍속은 " + speed + "meter/sec " + "입니다! " + " 날씨 핑계대지 말고 나가서 운동하세요!!"
+                        var message = time + " 기준 " + city + "의 기온은 " + temp + "도 입니다! " + "\n" + "습도는 " + humidity + "% 구요! " + "풍속은 " + speed + "meter/sec " + "입니다! " + "\n" + " 날씨 핑계대지 말고 나가서 운동하세요!!"
 
                         runOnUiThread {
                             messageDTOs.add(MessageDTO(false, message))

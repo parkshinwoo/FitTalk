@@ -94,7 +94,7 @@ class UploadPhotoActivity : AppCompatActivity() {
 
         // 파이어베이스 스토리지에 이미지 올리기
         storageRef?.putFile(photoUri!!)?.addOnSuccessListener {taskSnapshot ->
-            Toast.makeText(this, getString(R.string.upload_success), Toast.LENGTH_LONG).show()
+            Toast.makeText(this, getString(R.string.upload_photo_success), Toast.LENGTH_LONG).show()
 
             // 업로드된 이미지 주소를 가져오기 파일 경로
             var uri = taskSnapshot.downloadUrl
