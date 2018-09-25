@@ -14,10 +14,10 @@ import kotlinx.android.synthetic.main.recyclerview_item_design_chatbot.view.*
 
 
 // 메세지를 담는 데이터 클래스입니다.
-// 내가 보낸 메세지인지 챗봇이 내게 보낸 메세지인지를 체크하는 변수 IsMyMesage
+// 내가 보낸 메세지인지 챗봇이 내게 보낸 메세지인지를 체크하는 변수 isMyMesage
 // 메세지 내용을 담는 message
 data class MessageDTO(
-        var IsMyMessage:Boolean? = null,
+        var isMyMessage:Boolean? = null,
         var message:String? = null
         )
 
@@ -41,7 +41,7 @@ class ChatbotRecyclerViewAdapter(messageDTOs:ArrayList<MessageDTO>) : RecyclerVi
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        if (messageDTOs[position].IsMyMessage!!) {
+        if (messageDTOs[position].isMyMessage!!) {
             // 내가 챗봇에겐 보낸 메세지일 경우에는 나의 말풍선만 보이게 하고
             // 챗봇의 말풍선은 가려야합니다.
             holder.itemView.right_chatbubble.visibility = View.VISIBLE

@@ -43,9 +43,9 @@
 
     <!-- Add Photo -->
     <string name="upload_image">공유</string>
-    <string name="hint_image_content">사진에 대한 당신의 느낌을 적어주세요.</string>
-    <string name="upload_success">업로드 성공</string>
-    <string name="upload_fail">업로드 실패</string>
+    <string name="hint_image_content">당신만의 톡톡 튀는 느낌을 표현해보세요!</string>
+    <string name="upload_success">공유 성공</string>
+    <string name="upload_fail">공유 실패</string>
 
     <!-- Add Schedule -->
     <string name="mon">월요일</string>

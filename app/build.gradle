@@ -34,7 +34,7 @@ dependencies {
 
     implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
-    // 파이어베이스
+    // 파이어베이스 계정 인증
     implementation 'com.google.firebase:firebase-auth:12.0.1'
     // 구글 로그인
     implementation 'com.google.android.gms:play-services-auth:12.0.1'
@@ -46,6 +46,11 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.5'
     // API 서버에 요청
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
+
+    // 파이어베이스 스토어(데이터베이스)
+    implementation 'com.google.firebase:firebase-firestore:12.0.1'
+    // 파이어베이스 스토리지(저장소, FTP 서버 구축)
+    implementation 'com.google.firebase:firebase-storage:12.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'
