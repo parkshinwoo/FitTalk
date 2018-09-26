@@ -1,6 +1,7 @@
 package fourpeopleforcolor.fittalk
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -12,6 +13,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import fourpeopleforcolor.fittalk.fragment.AlarmFragment
 import fourpeopleforcolor.fittalk.fragment.HomeFragment
 import fourpeopleforcolor.fittalk.fragment.SearchFragment
@@ -44,6 +47,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 // 참고로 Fcm은 파이어베이스 클라우드 메세징의 줄인말이고 DTO는 Data Transfer Object입니다.
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+
+    // UserProfileFragment에서 넘겨준 요청코드 값을 담기 위한 변수입니다.
+    // UserProfileFragment.kt의 136줄을 참고하세요
+    var PICK_PROFILE_FROM_ALBUM = 0
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
@@ -153,9 +160,26 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         toolbar_title_image.visibility = View.VISIBLE
     }
 
-
+    // UserProfileFragment의 프로필 이미지 업로드 수행 요청을 이곳에서 받아 처리합니다.
+    // UserProfileFragment.kt의 136줄을 참고하세요
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        if(requestCode == PICK_PROFILE_FROM_ALBUM && resultCode == Activity.RESULT_OK){
+            var imageUri = data?.data
+            var currentUserUid = FirebaseAuth.getInstance().currentUser!!.uid
+
+            FirebaseStorage.getInstance().reference.child("userProfileImages").child(currentUserUid).putFile(imageUri!!).addOnCompleteListener {
+                task ->
+                // 사진의 url을 받아옵니다.
+                var url = task.result.downloadUrl.toString()
+                var map = HashMap<String, Any>()
+                // 사진의 url을 담습니다.
+                map["image"] = url
+                // 파이어베이스 데이터베이스에 profileImages라는 디렉터리를 만들고 그곳에 사진과 관련된 정보를 저장합니다.
+                FirebaseFirestore.getInstance().collection("profileImages").document(currentUserUid).set(map)
+            }
+        }
 
     }
 

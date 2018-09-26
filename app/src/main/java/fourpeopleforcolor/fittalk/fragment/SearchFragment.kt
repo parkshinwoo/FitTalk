@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_search.view.*
 
 class SearchFragment : Fragment() {
 
-    var mainView : View? = null
+    var fragmentView : View? = null
 
     // 2018년 9월 26일 팀장 박신우의 개발 메모입니다.
     // snapshot은 항상 데이터베이스를 지켜보다가 변경사항이 생기면 뷰한테 던져주는 역할을 합니다.
@@ -33,17 +33,17 @@ class SearchFragment : Fragment() {
     // 뷰가 처음 생성될때 실행되는 함수입니다.
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        mainView = inflater.inflate(R.layout.fragment_search, container, false)
-        return mainView
+        fragmentView = inflater.inflate(R.layout.fragment_search, container, false)
+        return fragmentView
     }
 
     // 뷰가 백그라운드로 가 있다가 다시 실행될때 실행되는 함수입니다.
     override fun onResume() {
         super.onResume()
         // SearchFragment의 main view에 아랫쪽에서 커스텀하고 디자인한 이미지 뷰를 붙여줍니다.
-        mainView?.search_fragment_recyclerview?.adapter = SearchFragmentRecyclerviewAdapter()
+        fragmentView?.search_fragment_recyclerview?.adapter = SearchFragmentRecyclerviewAdapter()
         // spanCount의 값을 3으로 줘야 한줄에 사진이 3장씩 그려집니다.
-        mainView?.search_fragment_recyclerview?.layoutManager = GridLayoutManager(activity, 3)
+        fragmentView?.search_fragment_recyclerview?.layoutManager = GridLayoutManager(activity, 3)
     }
 
     // 뷰가 꺼질때 실행된느 함수입니다. 이곳에서 스냅샷도 꺼야합니다.
@@ -122,8 +122,27 @@ class SearchFragment : Fragment() {
             // 그릇에 담긴 사진들을 glide 라이브러리를 이용해서 화면에 뿌려주는 겁니다.
             Glide.with(holder.itemView.context).load(photoDTOs[position].imageUrl).apply(RequestOptions().centerCrop()).into(imageView)
 
+            // 사진을 클릭하면 사진을 올린 유저의 프로필 화면으로 넘어갑니다.
+            imageView.setOnClickListener {
+                // 넘어가야할 프레그먼트인 유저 프로필 프레그먼트
+                val fragment = UserProfileFragment()
+                // 프레그먼트 전환에는 bundle을 사용합니다.
+                val bundle = Bundle()
+
+                // 선택된 사진을 올린 유저의 uid입니다.
+                // position 값에 클릭한 사진의 위치가 담겨 있습니다.
+                // 그 위치에 해당하는 사용자의 uid가 목적지가 됩니다.
+                // 그 목적지로 프레그먼트를 전환합니다.
+                bundle.putString("destinationUid", photoDTOs[position].uid)
+                // 선택된 사진을 올린 유저의 이메일 아이디입니다.
+                bundle.putString("userEmail", photoDTOs[position].userEmail)
+
+                // 필요한 키-값 쌍을 담은 bundle을 인자로 줍니다.
+                fragment.arguments = bundle
+
+                // 프레그먼트를 전환합니다.
+                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+            }
         }
-
     }
-
 }
