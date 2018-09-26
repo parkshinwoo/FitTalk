@@ -9,7 +9,7 @@
     <string name="signin_facebook">Facebook 계정으로 로그인</string>
     <string name="signup_complete">회원가입 성공</string>
     <string name="signin_complete">로그인 성공</string>
-    <string name="signout">로그아웃</string>
+    <string name="signout">쉴래, 로그아웃</string>
     <string name="signout_success">로그아웃 성공</string>
     <string name="signout_fail">로그아웃 실패</string>
     <string name="signout_fail_null">이메일과 비밀번호를 입력해주세요</string>
@@ -24,11 +24,11 @@
     <string name="chatbot">Chatbot</string>
 
     <!-- Account -->
-    <string name="post">게시물</string>
-    <string name="following">팔로잉</string>
-    <string name="follower">팔로워</string>
-    <string name="follow">팔로우</string>
-    <string name="follow_cancel">팔로우 취소</string>
+    <string name="post">소중한 기록들</string>
+    <string name="following">내 팬들</string>
+    <string name="follower">내 롤모델들</string>
+    <string name="follow">좀 하네? 팔로우 할래!</string>
+    <string name="follow_cancel">별로.. 팔로우 취소할래!</string>
     <string name="profile">Profile</string>
     <string name="count_0">0</string>
 
