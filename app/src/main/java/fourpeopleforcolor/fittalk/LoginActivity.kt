@@ -66,20 +66,25 @@ class LoginActivity : AppCompatActivity() {
 
     // 이메일 계정 생성
     fun createAndLoginEmail(){
-        auth?.createUserWithEmailAndPassword(email_edittext.text.toString(), password_edittext.text.toString())?.addOnCompleteListener {
-            task ->
-            if(task.isSuccessful){
-                // 계정 생성이 성공하면 메인 액티비티로 이동합니다.
-                // currentUser라는건 현재 회원가입 및 로그인을 시도하는 유저입니다. 즉 사용자이죠
-                moveMainPage(auth?.currentUser)
-            }else if(task.exception?.message.isNullOrEmpty()){
-                // 예외가 발생하면 메세지를 찍어주는 기능입니다.
-                Toast.makeText(this,task.exception?.message, Toast.LENGTH_LONG).show()
-            }else{
-                //회원가입 성공도 아니고 실패도 아니면 기존에 이미 있는 계정으로 로그인을 시키면 되겠죠
-                signinEmail()
+        if(email_edittext.text.isNullOrBlank()||password_edittext.text.isNullOrBlank()){
+            Toast.makeText(applicationContext,"이메일과 비밀번호를 입력 해 주세요.", Toast.LENGTH_LONG).show()
+        }else{
+            auth?.createUserWithEmailAndPassword(email_edittext.text.toString(), password_edittext.text.toString())?.addOnCompleteListener {
+                task ->
+                if(task.isSuccessful){
+                    // 계정 생성이 성공하면 메인 액티비티로 이동합니다.
+                    // currentUser라는건 현재 회원가입 및 로그인을 시도하는 유저입니다. 즉 사용자이죠
+                    moveMainPage(auth?.currentUser)
+                }else if(task.exception?.message.isNullOrEmpty()){
+                    // 예외가 발생하면 메세지를 찍어주는 기능입니다.
+                    Toast.makeText(this,task.exception?.message, Toast.LENGTH_LONG).show()
+                }else{
+                    //회원가입 성공도 아니고 실패도 아니면 기존에 이미 있는 계정으로 로그인을 시키면 되겠죠
+                    signinEmail()
+                }
             }
         }
+
     }
 
     // 이메일 계정으로 로그인

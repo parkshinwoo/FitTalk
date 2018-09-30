@@ -146,6 +146,10 @@ class ChatbotActivity : AppCompatActivity() {
                 }
             }
 
+            "Nutrition" -> {
+                
+            }
+
             else -> {
                 // 어느 유형에도 속하지 않을 시 다이얼로그 플로우에 기본 어구로 등록된 말이 출력됩니다.
                 var speech = result?.fulfillment?.speech
