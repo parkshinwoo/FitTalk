@@ -67,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
     // 이메일 계정 생성
     fun createAndLoginEmail(){
         if(email_edittext.text.isNullOrBlank()||password_edittext.text.isNullOrBlank()){
-            Toast.makeText(applicationContext,"이메일과 비밀번호를 입력 해 주세요.", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext,"이메일과 비밀번호를 입력 해 주세요.", Toast.LENGTH_LONG).show() //이메일 입력란, 비밀번호 입력란 둘 중 하나라도 비어있으면 진행이 되지 않고 Toast메세지를 띄우는 역할을 합니다.
         }else{
             auth?.createUserWithEmailAndPassword(email_edittext.text.toString(), password_edittext.text.toString())?.addOnCompleteListener {
                 task ->

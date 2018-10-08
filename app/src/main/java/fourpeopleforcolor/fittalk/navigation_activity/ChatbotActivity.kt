@@ -147,7 +147,8 @@ class ChatbotActivity : AppCompatActivity() {
             }
 
             "Nutrition" -> {
-                
+                var food = result?.parameters["food"]?.asString
+                nutritionMessage(food);
             }
 
             else -> {
@@ -222,6 +223,18 @@ class ChatbotActivity : AppCompatActivity() {
         })
     }
 
+    // 칼로리 관련 챗봇의 답장을 만드는 함수입니다.
+    fun nutritionMessage(food: String?){
+        var message : String? = null
+        if(food==null){
+            message = "입력하신 음식에 대한 정보는 없습니다."
+        }else{
+            message = "찾아보신 "+food+"의 칼로리는 0" + "입니다."
+        }
+        messageDTOs.add(MessageDTO(false, message))
+        recyclerview.adapter.notifyDataSetChanged()
+        recyclerview.smoothScrollToPosition(messageDTOs.size - 1)
+    }
     // 운동계획에 관련된 챗봇의 답장을 만드는 함수입니다.
     fun scheduleMessage(dayOfWeek: Int?){
 
