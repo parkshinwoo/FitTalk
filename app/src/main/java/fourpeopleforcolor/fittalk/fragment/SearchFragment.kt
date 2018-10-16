@@ -16,6 +16,16 @@ import com.google.firebase.firestore.ListenerRegistration
 import fourpeopleforcolor.fittalk.R
 import fourpeopleforcolor.fittalk.data_trasfer_object.PhotoDTO
 import kotlinx.android.synthetic.main.fragment_search.view.*
+import android.content.Intent
+import fourpeopleforcolor.fittalk.navigation_activity.CommentActivity
+import org.w3c.dom.Comment
+import android.support.v4.content.ContextCompat.startActivity
+import android.support.v4.content.ContextCompat.startActivity
+
+
+
+
+
 
 class SearchFragment : Fragment() {
 
@@ -122,6 +132,7 @@ class SearchFragment : Fragment() {
             // 그릇에 담긴 사진들을 glide 라이브러리를 이용해서 화면에 뿌려주는 겁니다.
             Glide.with(holder.itemView.context).load(photoDTOs[position].imageUrl).apply(RequestOptions().centerCrop()).into(imageView)
 
+
             // 사진을 클릭하면 사진을 올린 유저의 프로필 화면으로 넘어갑니다.
             imageView.setOnClickListener {
                 // 넘어가야할 프레그먼트인 유저 프로필 프레그먼트
@@ -140,9 +151,25 @@ class SearchFragment : Fragment() {
                 // 필요한 키-값 쌍을 담은 bundle을 인자로 줍니다.
                 fragment.arguments = bundle
 
+
                 // 프레그먼트를 전환합니다.
                 activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
             }
+
+            /**
+             * by 팀원 김민지
+             * 이미지를 한번 클릭하면 해당 user의 profile 로 이동.
+             * 이미지를 꾹 누르면 comment화면 활성화 를 유도하려 했지만
+             * fragment -> activity 로 전환 시에 intent가 오류가 나서 주석 처리로 남겨둡니다.
+             *
+             * uid와 timestamp 비교해서 일치하는 사진의 comment 화면을 불러오도록 함.
+             * **/
+         /*   imageView.setOnLongClickListener {
+             val intent = Intent(activity, CommentActivity::class.java)
+               intent.putExtra("fileId",photoDTOs[position].timestamp)
+               intent.putExtra("Uid",photoDTOs[position].uid)
+               requireActivity().startActivity(intent)*
+            }*/
         }
     }
 }
