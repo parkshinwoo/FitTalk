@@ -54,7 +54,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="29dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="60dp"
         android:text="월"
         android:background="@color/creamy_violet"
         android:textColor="@color/colorWhite"
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/mon"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="120dp"
         android:text="화"
         android:background="@color/creamy_violet"
         android:textColor="@color/colorWhite"
@@ -116,7 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/tue"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="180dp"
         android:text="수"
         android:background="@color/creamy_violet"
         android:textColor="@color/colorWhite"
@@ -146,8 +146,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/tue"
-
-        android:layout_marginTop="244dp"
+        android:layout_marginTop="240dp"
         android:text="목"
         android:background="@color/creamy_violet"
         android:textColor="@color/colorWhite"
@@ -159,7 +158,6 @@
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-
         android:layout_marginTop="280dp"
         android:layout_alignParentRight="true">
 
@@ -178,7 +176,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/tue"
 
-        android:layout_marginTop="304dp"
+        android:layout_marginTop="300dp"
         android:text="금"
         android:background="@color/creamy_violet"
         android:textColor="@color/colorWhite"
@@ -209,7 +207,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/tue"
 
-        android:layout_marginTop="364dp"
+        android:layout_marginTop="360dp"
         android:text="토"
         android:background="@color/creamy_violet"
         android:textColor="@color/colorWhite"
@@ -240,7 +238,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignStart="@+id/tue"
 
-        android:layout_marginTop="424dp"
+        android:layout_marginTop="420dp"
         android:text="일"
         android:background="@color/creamy_violet"
         android:textColor="@color/colorWhite"
