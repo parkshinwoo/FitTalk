@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorWhite"
     tools:context=".navigation_activity.UploadPhotoActivity">
 
 
@@ -49,6 +50,8 @@
             android:id="@+id/upload_photo_feeling"
             android:layout_width="match_parent"
             android:layout_height="180dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorWhite"
             android:gravity="top"
             android:hint="@string/hint_image_content" />
 

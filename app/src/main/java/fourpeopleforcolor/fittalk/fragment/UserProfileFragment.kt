@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -105,6 +106,12 @@ class UserProfileFragment : Fragment() {
                     // MainActivity.kt에 추가된 코드를 참고하세요
                     // MainActivity.kt에서 아래 문장(startActivityForResult)의 결과를 받아서 수행합니다.
                     activity?.startActivityForResult(photoPickerIntent, PICK_PROFILE_FROM_ALBUM)
+
+
+                    val ft = fragmentManager!!.beginTransaction()
+                    ft.detach(this).attach(this).commit()
+                    //프로필 사진이 바뀌었을 시에 fragment를 reload 하는 구문입니다.
+
                 }
             }else{
                 // 사용자가 다른 유저의 사진을 클릭해서 다른 유저의 프로필 화면으로 넘어간 경우입니다.
@@ -252,9 +259,9 @@ class UserProfileFragment : Fragment() {
     fun getProfileImages(){
         imageProfileListenerRegistration = firestore?.collection("profileImages")?.document(selectedUid!!)?.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
 
-            if(documentSnapshot == null) return@addSnapshotListener
+            if (documentSnapshot == null) return@addSnapshotListener
 
-            if(documentSnapshot.data != null){
+            if (documentSnapshot.data != null) {
                 var url = documentSnapshot?.data!!["image"]
                 Glide.with(activity!!).load(url).apply(RequestOptions().circleCrop()).into(fragmentView!!.account_profile)
             }

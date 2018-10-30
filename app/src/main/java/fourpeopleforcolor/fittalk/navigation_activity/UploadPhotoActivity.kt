@@ -19,6 +19,8 @@ import fourpeopleforcolor.fittalk.data_trasfer_object.PhotoDTO
 import kotlinx.android.synthetic.main.activity_upload_photo.*
 import java.text.SimpleDateFormat
 import java.util.*
+import android.os.SystemClock
+import android.view.View
 
 
 class UploadPhotoActivity : AppCompatActivity() {
@@ -62,8 +64,10 @@ class UploadPhotoActivity : AppCompatActivity() {
         }
 
         // 공유 버튼을 클릭시 사진을 업로드 하는 함수를 호출합니다.
-        upload_photo_btn.setOnClickListener {
+        upload_photo_btn.setOnClickListener (){
             photoUpload()
+            upload_photo_btn.isClickable=false //버튼 더블클릭 방지
+                                               //업로드 되는 시간 동안 두번이상 클릭하면 게시글이 두개이상 올라오는 것을 방지하였습니다 . by 팀원 김민지
         }
 
     }
