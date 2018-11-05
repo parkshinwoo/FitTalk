@@ -4,6 +4,8 @@ import ai.api.AIConfiguration
 import ai.api.AIDataService
 import ai.api.model.AIRequest
 import ai.api.model.Result
+import android.content.Intent
+import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -55,7 +57,9 @@ class ChatbotActivity : AppCompatActivity() {
         var config = AIConfiguration("260b917b01d24614ad23e0bdf398a7ab", AIConfiguration.SupportedLanguages.Korean)
         // 설정한 값으로 aiDataService 객체를 생성합니다.
         aiDataService = AIDataService(config)
-
+        searchfood.setOnClickListener {
+            openWeb()
+        }
         chat.setOnClickListener {
             if(!TextUtils.isEmpty(chatText.text)){
                 // 챗봇에게 보낼 말을 입력하는 창이 빈 문자열이 아닐 경우에 메세지를 보낼 수 있게 해줍니다.
@@ -306,8 +310,10 @@ class ChatbotActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
-
-
+    fun openWeb(){
+        var uri = Uri.parse("https://www.foodsafetykorea.go.kr/portal/healthyfoodlife/foodnutrient/simpleSearch.do?menu_grp=MENU_NEW03&menu_no=2805")
+        startActivity(Intent(Intent.ACTION_VIEW, uri))
     }
 }

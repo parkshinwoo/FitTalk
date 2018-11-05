@@ -164,11 +164,13 @@ class SearchFragment : Fragment() {
              *
              * uid와 timestamp 비교해서 일치하는 사진의 comment 화면을 불러오도록 함.
              * **/
-         /*   imageView.setOnLongClickListener {
-             val intent = Intent(activity, CommentActivity::class.java)
-               intent.putExtra("fileId",photoDTOs[position].timestamp)
-               intent.putExtra("Uid",photoDTOs[position].uid)
-               requireActivity().startActivity(intent)*
+        /*   fun imageClicked(){
+                imageView.setOnLongClickListener(){
+                    val intent = Intent(activity, CommentActivity::class.java)
+                    intent.putExtra("fileId",photoDTOs[position].timestamp)
+                    intent.putExtra("Uid",photoDTOs[position].uid)
+                    activity.startActivity(intent)
+                }
             }*/
         }
     }
