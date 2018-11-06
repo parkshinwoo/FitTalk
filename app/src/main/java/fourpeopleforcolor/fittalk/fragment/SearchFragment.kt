@@ -16,14 +16,16 @@ import com.google.firebase.firestore.ListenerRegistration
 import fourpeopleforcolor.fittalk.R
 import fourpeopleforcolor.fittalk.data_trasfer_object.PhotoDTO
 import kotlinx.android.synthetic.main.fragment_search.view.*
-import android.content.Intent
-import fourpeopleforcolor.fittalk.navigation_activity.CommentActivity
-import org.w3c.dom.Comment
-import android.support.v4.content.ContextCompat.startActivity
-import android.support.v4.content.ContextCompat.startActivity
 
 
-
+/*
+* 2018년 11월 6일 팀장 박신우의 개발 메모입니다.
+* 검색 화면 상단에 검색창 레이아웃을 하나 만들고
+* 그 검색창에 찾고자 하는 사용자의 Email 주소를 입력하면
+* 그 주소를 기반으로 해당 사용자를 검색해서 해당 사용자를 보여주는 기능을 추가로 구현하려 합니다.
+* 아마 추가적인 검색 화면, 즉 fragment가 필요할 듯 합니다. (혹은 해당 사용자의 사진만 보여주는 기능으로 대체)
+* 혹은 해당 아이디가 없으면 토스트 메세지를 띄우고 해당 아이디가 있으면 그 계정 화면으로 즉시 이동
+ */
 
 class SearchFragment : Fragment() {
 

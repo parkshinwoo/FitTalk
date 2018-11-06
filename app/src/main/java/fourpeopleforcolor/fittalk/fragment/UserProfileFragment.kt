@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -45,6 +44,9 @@ class UserProfileFragment : Fragment() {
     // SearchFragment.kt의 126줄 부터 참고하세요.
     var selectedUid : String? = null
 
+    // 현재 사용자가 선택한 사용자의 userEmail
+    var selectedUserEmail : String? = null
+
 
 
 
@@ -77,6 +79,8 @@ class UserProfileFragment : Fragment() {
             // arguments가 null이 아니라면 넘어온 값이 있는 것입니다.
             // 선택된 사람의 uid
             selectedUid = arguments?.getString("destinationUid")
+            // 선택된 사람의 email
+            selectedUserEmail = arguments?.getString("userEmail")
 
             if(selectedUid != null && selectedUid == currentUserUid){
                 // 선택된 사람의 uid가 현재 사용자의 uid와 같은 경우입니다.
@@ -349,9 +353,80 @@ class UserProfileFragment : Fragment() {
             return photoDTOs.size
         }
 
+        // 2018년 11월 6일 팀장 박신우의 개발 메모입니다.
+        // 유저 프로필 화면에서 팔로잉 수(숫자), 팔로워 수(숫자), 팔로잉이라는 텍스트, 팔로워라는 텍스트를 클릭했을때
+        // 각각 팔로잉 리스트, 팔로워 리스트 fragment로 전환되는 기능을 추가했습니다.
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             var imageView = (holder as CustomViewHolder).imageView
             Glide.with(holder.itemView.context).load(photoDTOs[position].imageUrl).apply(RequestOptions().centerCrop()).into(imageView)
+
+            // 팔로워 관련 부분을 클락했을때 팔로워 목록으로 화면을 전환합니다.
+            fragmentView?.account_follower_count?.setOnClickListener {
+                // 넘어가야할 프레그먼트인 유저 프로필 fragment
+                val fragment = FollowerListFragment()
+                // 프레그먼트 전환에는 bundle을 사용합니다.
+                val bundle = Bundle()
+
+                bundle.putString("destinationUid", selectedUid)
+
+                bundle.putString("userEmail", selectedUserEmail)
+
+                // 필요한 키-값 쌍을 담은 bundle을 인자로 줍니다.
+                fragment.arguments = bundle
+
+                // 프레그먼트를 전환합니다.
+                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+            }
+            fragmentView?.account_follower_text?.setOnClickListener {
+                // 넘어가야할 프레그먼트인 유저 프로필 fragment
+                val fragment = FollowerListFragment()
+                // 프레그먼트 전환에는 bundle을 사용합니다.
+                val bundle = Bundle()
+
+                bundle.putString("destinationUid", selectedUid)
+
+                bundle.putString("userEmail", selectedUserEmail)
+
+                // 필요한 키-값 쌍을 담은 bundle을 인자로 줍니다.
+                fragment.arguments = bundle
+
+                // 프레그먼트를 전환합니다.
+                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+            }
+
+            // 팔로잉 관련 부분을 클릭했을때 팔로잉 목록으로 화면을 전환합니다.
+            fragmentView?.account_following_count?.setOnClickListener {
+                // 넘어가야할 프레그먼트인 유저 프로필 fragment
+                val fragment = FollowingListFragment()
+                // 프레그먼트 전환에는 bundle을 사용합니다.
+                val bundle = Bundle()
+
+                bundle.putString("destinationUid", selectedUid)
+
+                bundle.putString("userEmail", selectedUserEmail)
+
+                // 필요한 키-값 쌍을 담은 bundle을 인자로 줍니다.
+                fragment.arguments = bundle
+
+                // 프레그먼트를 전환합니다.
+                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+            }
+            fragmentView?.account_following_text?.setOnClickListener {
+                // 넘어가야할 프레그먼트인 유저 프로필 fragment
+                val fragment = FollowingListFragment()
+                // 프레그먼트 전환에는 bundle을 사용합니다.
+                val bundle = Bundle()
+
+                bundle.putString("destinationUid", selectedUid)
+
+                bundle.putString("userEmail", selectedUserEmail)
+
+                // 필요한 키-값 쌍을 담은 bundle을 인자로 줍니다.
+                fragment.arguments = bundle
+
+                // 프레그먼트를 전환합니다.
+                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+            }
         }
 
     }

@@ -32,6 +32,10 @@
     <string name="profile">Profile</string>
     <string name="count_0">0</string>
 
+    <!-- Follower, Following List -->
+    <string name="list_follow">팔로우</string>
+    <string name="list_follow_cancel">팔로우 취소</string>
+
     <!-- Alarm -->
     <string name="alarm_favorite">님이 언더아머 착용 허가 마크를 눌러줬습니다.</string>
     <string name="alarm_who">님이 </string>

@@ -6,56 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".navigation_activity.CommentActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="281dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp"
-        app:srcCompat="@color/common_google_signin_btn_text_dark_disabled" />
+        android:layout_height="35dp">
+        <ImageView
+            android:src="@drawable/logo_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
+        android:background="@color/colorDivision"
+        android:layout_below="@+id/my_toolbar"
+        android:id="@id/toolbar_division"
         android:layout_width="match_parent"
-        android:layout_height="246dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
+        android:layout_height="1dp"
+        android:orientation="horizontal"></LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="30dp"
+        android:id="@+id/comment_recyclerview"
+        android:layout_below="@+id/toolbar_division"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:layout_margin="10dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="321dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_marginBottom="0dp"
-        android:orientation="vertical">
+        android:layout_below="@+id/comment_recyclerview"
+        android:text="@string/comment"
+        android:id="@+id/comment_btn_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="39dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+    <EditText
+        android:layout_margin="10dp"
+        android:layout_toLeftOf="@+id/comment_btn_send"
+        android:layout_below="@+id/comment_recyclerview"
+        android:id="@+id/comment_edit_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
 
 </RelativeLayout>

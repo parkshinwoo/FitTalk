@@ -8,7 +8,7 @@
     android:layout_height="50dp">
 
     <ImageView
-        android:id="@+id/commentviewItem_imageview_profile"
+        android:id="@+id/follower_list_imageview_profile"
         android:layout_margin="7.5dp"
         android:layout_width="35dp"
         android:layout_height="35dp" />
@@ -17,17 +17,19 @@
         android:textStyle="bold"
         android:layout_margin="7.5dp"
         tools:text = "유저 아이디"
-        android:id="@+id/commentviewItem_textview_profile"
+        android:id="@+id/follower_list_textview_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <TextView
-
+    <!-- 사용자를 팔로우 하는 목록이므로 디폴트는 팔로우로 해놓는다.(기존에 이미 팔로잉 하고 있는지 체크하고 다시 설정해줄 필요가 있음 -->
+    <Button
         android:layout_margin="7.5dp"
-        tools:text = "댓글"
-        android:id="@+id/commentviewItem_textview_comment"
+        tools:text = "@string/list_follow"
+        android:id="@+id/follower_list_follow_btn"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/coral"
+        android:textColor="@color/colorWhite"/>
 
 
 </LinearLayout>

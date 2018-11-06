@@ -7,6 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import fourpeopleforcolor.fittalk.R
 
+/*
+* selectedUid 값 이용해서 계획만 띄우면 됩니다.
+*/
+
 class ScheduleFragment : Fragment() {
 
 
