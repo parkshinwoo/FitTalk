@@ -25,8 +25,6 @@ import android.support.v4.content.ContextCompat.startActivity
 
 
 
-
-
 class SearchFragment : Fragment() {
 
     var fragmentView : View? = null
