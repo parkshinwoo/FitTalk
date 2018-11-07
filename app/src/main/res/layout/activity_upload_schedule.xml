@@ -256,5 +256,4 @@
         android:text="@string/upload_schedule"
         android:theme="@style/ButtonStyle" />
 
-
 </RelativeLayout>

@@ -157,6 +157,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     fun setToolbarDefault(){
         toolbar_btn_back.visibility = View.GONE
         toolbar_username.visibility = View.GONE
+        // 11/7 팀장 박신우 스케쥴 확인 버튼 추가
+        toolbar_btn_schedule.visibility = View.GONE
         toolbar_title_image.visibility = View.VISIBLE
     }
 

@@ -1,17 +1,240 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.ScheduleFragment">
 
-
-  <android.support.v7.widget.RecyclerView
-       android:id="@+id/account_recyclerview"
+  <android.support.v7.widget.Toolbar
+      android:id="@+id/my_toolbar"
       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-      android:layout_marginTop="10dp">
+      android:layout_height="35dp"
+      android:background="@color/colorWhite">
+    <ImageView
+        android:src="@drawable/logo_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+  </android.support.v7.widget.Toolbar>
 
-    </android.support.v7.widget.RecyclerView>
+  <LinearLayout
+      android:id="@+id/toolbar_division"
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_below="@+id/my_toolbar"
+      android:background="@color/colorDivision"
+      android:orientation="horizontal">
+  </LinearLayout>
 
-</LinearLayout>
+  <android.support.design.widget.TextInputLayout
+      android:layout_width="314dp"
+      android:layout_height="50dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentTop="true"
+      android:layout_marginLeft="70dp"
+      android:layout_marginRight="5dp"
+      android:layout_marginStart="70dp"
+      android:layout_marginTop="40dp"
+      android:layout_alignParentRight="true">
+
+    <TextView
+        android:id="@+id/schedule_mon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        />
+
+  </android.support.design.widget.TextInputLayout>
+
+  <TextView
+      android:id="@+id/mon"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentTop="true"
+      android:layout_marginStart="29dp"
+      android:layout_marginTop="56dp"
+      android:text="월"
+      android:background="@color/creamy_violet"
+      android:textColor="@color/colorWhite"
+      android:layout_alignParentLeft="true"
+      android:layout_marginLeft="29dp" />
+
+
+  <android.support.design.widget.TextInputLayout
+      android:layout_width="314dp"
+      android:layout_height="50dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentTop="true"
+      android:layout_marginTop="100dp"
+      android:layout_alignParentRight="true">
+
+    <TextView
+        android:id="@+id/schedule_tue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        />
+
+  </android.support.design.widget.TextInputLayout>
+
+
+  <TextView
+      android:id="@+id/tue"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_alignStart="@+id/mon"
+      android:layout_marginTop="116dp"
+      android:text="화"
+      android:background="@color/creamy_violet"
+      android:textColor="@color/colorWhite"
+      android:layout_alignLeft="@+id/mon" />
+
+  <android.support.design.widget.TextInputLayout
+      android:layout_width="314dp"
+      android:layout_height="50dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentTop="true"
+      android:layout_marginTop="160dp"
+      android:layout_alignParentRight="true">
+
+    <TextView
+        android:id="@+id/schedule_wed"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        />
+
+  </android.support.design.widget.TextInputLayout>
+  <TextView
+      android:id="@+id/wed"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_alignStart="@+id/tue"
+      android:layout_marginTop="176dp"
+      android:text="수"
+      android:background="@color/creamy_violet"
+      android:textColor="@color/colorWhite"
+      android:layout_alignLeft="@+id/tue" />
+
+  <android.support.design.widget.TextInputLayout
+      android:layout_width="314dp"
+      android:layout_height="50dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentTop="true"
+
+      android:layout_marginTop="220dp"
+      android:layout_alignParentRight="true">
+
+    <TextView
+        android:id="@+id/schedule_thr"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        />
+
+  </android.support.design.widget.TextInputLayout>
+  <TextView
+      android:id="@+id/thr"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_alignStart="@+id/tue"
+      android:layout_marginTop="234dp"
+      android:text="목"
+      android:background="@color/creamy_violet"
+      android:textColor="@color/colorWhite"
+      android:layout_alignLeft="@+id/tue" />
+
+  <android.support.design.widget.TextInputLayout
+      android:layout_width="314dp"
+      android:layout_height="50dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentTop="true"
+      android:layout_marginTop="280dp"
+      android:layout_alignParentRight="true">
+
+    <TextView
+        android:id="@+id/schedule_fri"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        />
+
+  </android.support.design.widget.TextInputLayout>
+  <TextView
+      android:id="@+id/fri"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_alignStart="@+id/tue"
+
+      android:layout_marginTop="296dp"
+      android:text="금"
+      android:background="@color/creamy_violet"
+      android:textColor="@color/colorWhite"
+      android:layout_alignLeft="@+id/tue" />
+
+  <android.support.design.widget.TextInputLayout
+      android:layout_width="314dp"
+      android:layout_height="50dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentTop="true"
+
+      android:layout_marginTop="340dp"
+      android:layout_alignParentRight="true">
+
+    <TextView
+        android:id="@+id/schedule_sat"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        />
+
+  </android.support.design.widget.TextInputLayout>
+  <TextView
+      android:id="@+id/sat"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_alignStart="@+id/tue"
+
+      android:layout_marginTop="356dp"
+      android:text="토"
+      android:background="@color/creamy_violet"
+      android:textColor="@color/colorWhite"
+      android:layout_alignLeft="@+id/tue" />
+
+  <android.support.design.widget.TextInputLayout
+      android:layout_width="314dp"
+      android:layout_height="50dp"
+      android:layout_alignParentEnd="true"
+      android:layout_alignParentTop="true"
+
+      android:layout_marginTop="400dp"
+      android:layout_alignParentRight="true">
+
+    <TextView
+        android:id="@+id/schedule_sun"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        />
+
+  </android.support.design.widget.TextInputLayout>
+  <TextView
+      android:id="@+id/sun"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentTop="true"
+      android:layout_alignStart="@+id/tue"
+
+      android:layout_marginTop="416dp"
+      android:text="일"
+      android:background="@color/creamy_violet"
+      android:textColor="@color/colorWhite"
+      android:layout_alignLeft="@+id/tue" />
+
+</RelativeLayout>

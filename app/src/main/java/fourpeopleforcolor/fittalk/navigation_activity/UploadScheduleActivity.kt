@@ -35,6 +35,10 @@ class UploadScheduleActivity : AppCompatActivity() {
 
     }
 
+    /*
+    11월 7일 팀장 박신우 개발 메모입니다.
+    운동 계획에 아무것도 입력하지 않은 경우 예외처리를 해줘야합니다.
+     */
     // 운동 계획을 업로드하는 함수입니다.
     fun scheduleUpload() {
 

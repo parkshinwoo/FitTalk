@@ -47,9 +47,6 @@ class UserProfileFragment : Fragment() {
     // 현재 사용자가 선택한 사용자의 userEmail
     var selectedUserEmail : String? = null
 
-
-
-
     // 2018년 9월 26일 팀장 박신우의 개발 메모입니다.
     // snapshot은 항상 데이터베이스를 지켜보다가 변경사항이 생기면 뷰한테 던져주는 역할을 합니다.
     // 현재 사용하는 파이어베이스 데이터베이스가 push driven 방식이므로 스냅샷을 쓰면
@@ -111,7 +108,6 @@ class UserProfileFragment : Fragment() {
                     // MainActivity.kt에서 아래 문장(startActivityForResult)의 결과를 받아서 수행합니다.
                     activity?.startActivityForResult(photoPickerIntent, PICK_PROFILE_FROM_ALBUM)
 
-
                     val ft = fragmentManager!!.beginTransaction()
                     ft.detach(this).attach(this).commit()
                     //프로필 사진이 바뀌었을 시에 fragment를 reload 하는 구문입니다.
@@ -128,6 +124,8 @@ class UserProfileFragment : Fragment() {
                 var mainActivity = (activity as MainActivity)
                 mainActivity.toolbar_title_image.visibility = View.GONE
                 mainActivity.toolbar_btn_back.visibility = View.VISIBLE
+                // 팀장 박신우 11/7 스케쥴 확인 버튼 추가
+                mainActivity.toolbar_btn_schedule.visibility = View.VISIBLE
                 mainActivity.toolbar_username.visibility = View.VISIBLE
                 // SearchFragment에서 받아온 인자 값입니다.
                 mainActivity.toolbar_username.text = arguments?.getString("userEmail")
@@ -137,6 +135,22 @@ class UserProfileFragment : Fragment() {
                     // 하단 네비게이션바의 메뉴 아이템으로 홈 화면을 지정해서
                     // 홈화면으로 이동시킵니다.
                     mainActivity.bottom_navigation_top.selectedItemId = R.id.action_home
+                }
+
+                // 11/7 팀장 박신우 스케쥴 확인하기 버튼 추가
+                // 스케쥴 버튼을 클릭하면 선택된 사용자의 운동 계획 화면으로 이동합니다.
+                mainActivity.toolbar_btn_schedule.setOnClickListener {
+                    // 넘어가야할 프레그먼트인 유저 프로필 fragment
+                    val fragment = ScheduleFragment()
+                    val bundle = Bundle()
+
+                    bundle.putString("destinationUid", selectedUid)
+                    bundle.putString("userEmail", selectedUserEmail)
+
+                    fragment.arguments = bundle
+
+                    // 프레그먼트를 전환합니다.
+                    activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
                 }
 
                 // 다른 유저의 프로필 화면에서는 로그아웃 버튼이 아닌 팔로우 하기 버튼입니다.
@@ -362,7 +376,8 @@ class UserProfileFragment : Fragment() {
 
             // 팔로워 관련 부분을 클락했을때 팔로워 목록으로 화면을 전환합니다.
             fragmentView?.account_follower_count?.setOnClickListener {
-                // 넘어가야할 프레그먼트인 유저 프로필 fragment
+
+                // 넘어가야할 프레그먼트인 팔로워 리스트 fragment
                 val fragment = FollowerListFragment()
                 // 프레그먼트 전환에는 bundle을 사용합니다.
                 val bundle = Bundle()
@@ -378,7 +393,8 @@ class UserProfileFragment : Fragment() {
                 activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
             }
             fragmentView?.account_follower_text?.setOnClickListener {
-                // 넘어가야할 프레그먼트인 유저 프로필 fragment
+
+                // 넘어가야할 프레그먼트인 팔로워 리스트 fragment
                 val fragment = FollowerListFragment()
                 // 프레그먼트 전환에는 bundle을 사용합니다.
                 val bundle = Bundle()
@@ -396,7 +412,8 @@ class UserProfileFragment : Fragment() {
 
             // 팔로잉 관련 부분을 클릭했을때 팔로잉 목록으로 화면을 전환합니다.
             fragmentView?.account_following_count?.setOnClickListener {
-                // 넘어가야할 프레그먼트인 유저 프로필 fragment
+
+                // 넘어가야할 프레그먼트인 팔로워 리스트 fragment
                 val fragment = FollowingListFragment()
                 // 프레그먼트 전환에는 bundle을 사용합니다.
                 val bundle = Bundle()
@@ -412,7 +429,8 @@ class UserProfileFragment : Fragment() {
                 activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
             }
             fragmentView?.account_following_text?.setOnClickListener {
-                // 넘어가야할 프레그먼트인 유저 프로필 fragment
+
+                // 넘어가야할 프레그먼트인 팔로워 리스트 fragment
                 val fragment = FollowingListFragment()
                 // 프레그먼트 전환에는 bundle을 사용합니다.
                 val bundle = Bundle()

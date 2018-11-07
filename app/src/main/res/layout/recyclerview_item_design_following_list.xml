@@ -8,7 +8,8 @@
     android:layout_height="50dp">
 
     <ImageView
-        android:id="@+id/follower_list_imageview_profile"
+        tools:src="@mipmap/ic_launcher"
+        android:id="@+id/following_list_imageview_profile"
         android:layout_margin="7.5dp"
         android:layout_width="35dp"
         android:layout_height="35dp" />
@@ -16,20 +17,20 @@
     <TextView
         android:textStyle="bold"
         android:layout_margin="7.5dp"
-        tools:text = "유저 아이디"
-        android:id="@+id/follower_list_textview_profile"
+        tools:text = "이메일 아이디"
+        android:id="@+id/following_list_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <!-- 팔로잉 목록이므로 버튼 설정은 디폴트를 취소하기로 설정한다 -->
+    <!--
     <Button
         android:layout_margin="7.5dp"
-        tools:text = "@string/list_follow_cancel"
+        android:text = ""
         android:id="@+id/follower_list_follow_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/coral"
         android:textColor="@color/colorWhite"/>
-
+    -->
 
 </LinearLayout>

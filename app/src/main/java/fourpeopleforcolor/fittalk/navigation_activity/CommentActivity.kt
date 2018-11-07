@@ -113,6 +113,10 @@ class CommentActivity : AppCompatActivity() {
             view.commentviewItem_textview_profile.text = comments[position].userEmail
 
             // 프로필 이미지 가져오기
+            /* 11월 7일 팀장 박신우 개발 메모입니다.
+             * 프로필 이미지 등록 안한 경우에 대한 예외처리 필요합니다.
+             * 예외처리를 안하니까 프로필 이미지 등록을 안한 계정에 대해서는 동작 안하는 기능이 몇가지가 있습니다.
+            */
             FirebaseFirestore.getInstance().collection("profileImages")?.document(comments[position].uid!!)?.get()?.addOnCompleteListener {
                 task ->
                 if(task.isSuccessful){
