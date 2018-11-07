@@ -14,9 +14,11 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import fourpeopleforcolor.fittalk.MainActivity
 import fourpeopleforcolor.fittalk.R
 import fourpeopleforcolor.fittalk.data_trasfer_object.FollowDTO
 import fourpeopleforcolor.fittalk.data_trasfer_object.PhotoDTO
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_follower_list.view.*
 import kotlinx.android.synthetic.main.recyclerview_item_design_follower_list.view.*
 
@@ -65,6 +67,10 @@ class FollowerListFragment : Fragment() {
             // 선택된 사람의 email
             selectedUserEmail = arguments?.getString("userEmail")
         }
+
+        var mainActivity = (activity as MainActivity)
+        mainActivity.toolbar_btn_schedule.visibility = View.GONE
+
         return fragmentView
     }
 

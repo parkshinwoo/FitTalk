@@ -9,7 +9,9 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
+import fourpeopleforcolor.fittalk.MainActivity
 import fourpeopleforcolor.fittalk.R
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
 
 /*
@@ -49,6 +51,9 @@ class ScheduleFragment : Fragment() {
             // 선택된 사람의 email
             selectedUserEmail = arguments?.getString("userEmail")
         }
+
+        var mainActivity = (activity as MainActivity)
+        mainActivity.toolbar_btn_schedule.visibility = View.GONE
 
         // timestamp를 통해 최신순으로 정렬하고 사용자의 uid, 요일에 맞는 데이터를 가져옵니다.
         // schedules 디렉터리에 접근해서 timestamp(계획이 등록된 시스템 시간)으로 정렬해서 최신순으로 합니다.
