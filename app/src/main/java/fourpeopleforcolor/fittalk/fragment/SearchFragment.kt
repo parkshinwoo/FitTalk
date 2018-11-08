@@ -1,6 +1,7 @@
 package fourpeopleforcolor.fittalk.fragment
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -15,7 +16,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import fourpeopleforcolor.fittalk.R
 import fourpeopleforcolor.fittalk.data_trasfer_object.PhotoDTO
+import fourpeopleforcolor.fittalk.navigation_activity.CommentActivity
 import kotlinx.android.synthetic.main.fragment_search.view.*
+
 
 
 /*
@@ -69,9 +72,11 @@ class SearchFragment : Fragment() {
 
         // 데이터베이스로 부터 넘어오는 데이터를 받을 변수입니다.
         var photoDTOs : ArrayList<PhotoDTO>
+        var photoUidList : ArrayList<String>
 
         init {
             photoDTOs = ArrayList()
+            photoUidList = ArrayList() // 11월 8일 추가
 
             // 사진을 가져오는데 최신순으로 정렬해서 가져옵니다.
             searchListenerRegistration = FirebaseFirestore.getInstance().collection("images").orderBy("timestamp").addSnapshotListener { querySnapshot, firebaseFirestoreException ->
@@ -83,6 +88,7 @@ class SearchFragment : Fragment() {
                 // 스냅샷은 항상 데이터베이스를 지켜보면서 갱신되는걸 긁어옵니다.
                 // 수행될때마다 그릇을 비워주지 않으면 중복된 사진이 쌓여서 뿌려지겠죠?
                 photoDTOs.clear()
+                photoUidList.clear() // 11월 8일 추가
 
                 // documents는 "images" 디렉터리의 하위에 있는 각 이미지 하나 하나에 관련된 묶음입니다.
                 // 즉 "images"라는 디렉터리 밑에 사진들이 있고
@@ -90,6 +96,7 @@ class SearchFragment : Fragment() {
                 for(snapshot in querySnapshot!!.documents){
                     // 긁어온 데이터를 PhotoDTO 타입으로 캐스팅 해주고 그릇에 담습니다.
                     photoDTOs.add(snapshot.toObject(PhotoDTO::class.java))
+                    photoUidList.add(snapshot.id)
                 }
                 // 데이터들이 뿌려지는 recyclerview도 새로고침해줘야 갱신 사항이 반영됩니다.
                 notifyDataSetChanged()
@@ -154,6 +161,25 @@ class SearchFragment : Fragment() {
 
                 // 프레그먼트를 전환합니다.
                 activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+            }
+
+            /*
+            2018년 11월 8일 팀장 박신우의 개발 메모입니다.
+            김민지 팀원이 구현하고자 했던 이미지를 길게 눌렀을때
+            해당 이미지의 댓글 화면으로 이동하는 기능을 구현했습니다.
+             */
+            imageView.setOnLongClickListener {
+                var intent = Intent(fragmentView?.context, CommentActivity::class.java)
+
+                // 선택한 이미지에 해당하는 정보를 긁어오기 위함
+                intent.putExtra("photoUid", photoUidList[position])
+
+                // 코멘트 엑티비티에서 알람 이벤트 함수에 넘겨줄 파라미터
+                intent.putExtra("destinationUid", photoDTOs[position].uid)
+
+                startActivity(intent)
+
+                true
             }
 
             /**
