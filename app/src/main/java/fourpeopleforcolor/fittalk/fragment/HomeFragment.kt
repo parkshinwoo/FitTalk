@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import fourpeopleforcolor.fittalk.R
+import fourpeopleforcolor.fittalk.data_trasfer_object.AlarmDTO
 import fourpeopleforcolor.fittalk.data_trasfer_object.FollowDTO
 import fourpeopleforcolor.fittalk.data_trasfer_object.PhotoDTO
 import fourpeopleforcolor.fittalk.navigation_activity.CommentActivity
@@ -28,7 +29,7 @@ class HomeFragment : Fragment() {
     var firestore: FirebaseFirestore? = null
     var user: FirebaseAuth? = null
 
-    // 2018년 11월 6일 팀장 박신우 향후 푸쉬알람을 위해 FcmDTO를 추가해야합니다.
+    // 2018년 11월 9일 팀장 박신우의 개발 메모입니다. Fcm, 즉 파이어베이스 클라우드 메세징을 위한 변수를 향후 추가하고 백그라운드 푸쉬알람을 구현해야합니다.
 
     var followingSnapshot: ListenerRegistration? = null
 
@@ -213,13 +214,32 @@ class HomeFragment : Fragment() {
                     photoDTO?.underArmours[uid] = true
                     photoDTO?.underArmourCount = photoDTO?.underArmourCount + 1
 
-                    //
+                    /*
+                    11월 10일 팀장 박신우의 개발 메모입니다.
+                    알람 화면을 위한 함수 호출입니다.
+                     */
+                    favoriteAlarm(photoDTOs[position].uid!!)
 
                 }
                 // photoDTO 만든 값을 지정한 경로에 set 해주는것
                 transaction.set(tsDoc, photoDTO)
             }
 
+        }
+
+        fun favoriteAlarm(destinationUid:String){
+            var alarmDTO = AlarmDTO()
+            alarmDTO.destinationUid = destinationUid
+            alarmDTO.userEmail = user?.currentUser?.email
+            alarmDTO.uid = user?.currentUser?.uid
+            alarmDTO.kind = 0
+            alarmDTO.timestamp = System.currentTimeMillis()
+
+            var title = alarmDTO.userEmail + alarmDTO.kind + alarmDTO.timestamp
+
+            FirebaseFirestore.getInstance().collection("alarms").document(title).set(alarmDTO)
+
+            //
         }
     }
 }

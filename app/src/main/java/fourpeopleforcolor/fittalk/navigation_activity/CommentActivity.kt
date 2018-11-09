@@ -13,6 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import fourpeopleforcolor.fittalk.R
+import fourpeopleforcolor.fittalk.data_trasfer_object.AlarmDTO
 import fourpeopleforcolor.fittalk.data_trasfer_object.PhotoDTO
 import kotlinx.android.synthetic.main.activity_comment.*
 import kotlinx.android.synthetic.main.recyclerview_item_design_comment.view.*
@@ -26,9 +27,9 @@ class CommentActivity : AppCompatActivity() {
     var user : FirebaseAuth? = null
     var destinationUid : String? = null
 
-    var commentSnapshot : ListenerRegistration? = null
+    // 2018년 11월 9일 팀장 박신우의 개발 메모입니다. Fcm, 즉 파이어베이스 클라우드 메세징을 위한 변수를 향후 추가하고 백그라운드 푸쉬알람을 구현해야합니다.
 
-    //
+    var commentSnapshot : ListenerRegistration? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,14 +56,32 @@ class CommentActivity : AppCompatActivity() {
 
             FirebaseFirestore.getInstance().collection("images").document(photoUid!!).collection("comments").document().set(comment)
 
-            //
+            /*
+              11월 10일 팀장 박신우의 개발 메모입니다.
+              알람 화면을 위한 함수 호출입니다.
+            */
+            commentAlarm(destinationUid!!, comment_edit_message.text.toString())
 
             // 댓글 달기 버튼을 누르고 나면 기존에 있던 내용은 초기화
             comment_edit_message.setText("")
         }
     }
 
-    //
+    fun commentAlarm(destinationUid : String, message : String){
+        var alarmDTO = AlarmDTO()
+        alarmDTO.destinationUid = destinationUid
+        alarmDTO.userEmail = user?.currentUser?.email
+        alarmDTO.uid = user?.currentUser?.uid
+        alarmDTO.kind = 1
+        alarmDTO.message = message
+        alarmDTO.timestamp = System.currentTimeMillis()
+
+        var title = alarmDTO.userEmail + alarmDTO.kind + alarmDTO.timestamp
+
+        FirebaseFirestore.getInstance().collection("alarms").document(title).set(alarmDTO)
+
+        //
+    }
 
     override fun onResume() {
         super.onResume()
@@ -108,7 +127,7 @@ class CommentActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            var view = holder!!.itemView
+            var view = (holder as CustomViewHolder).itemView
             view.commentviewItem_textview_comment.text = comments[position].comment
             view.commentviewItem_textview_profile.text = comments[position].userEmail
 

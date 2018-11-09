@@ -10,14 +10,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.firestore.QuerySnapshot
 import fourpeopleforcolor.fittalk.R
 import fourpeopleforcolor.fittalk.data_trasfer_object.PhotoDTO
 import fourpeopleforcolor.fittalk.navigation_activity.CommentActivity
+import kotlinx.android.synthetic.main.fragment_search.*
 import kotlinx.android.synthetic.main.fragment_search.view.*
+
+
 
 
 
@@ -34,6 +41,8 @@ class SearchFragment : Fragment() {
 
     var fragmentView : View? = null
 
+    var auth : FirebaseAuth? = null
+
     // 2018년 9월 26일 팀장 박신우의 개발 메모입니다.
     // snapshot은 항상 데이터베이스를 지켜보다가 변경사항이 생기면 뷰한테 던져주는 역할을 합니다.
     // 현재 사용하는 파이어베이스 데이터베이스가 push driven 방식이므로 스냅샷을 쓰면
@@ -46,6 +55,9 @@ class SearchFragment : Fragment() {
     // 뷰가 처음 생성될때 실행되는 함수입니다.
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        auth = FirebaseAuth.getInstance()
+
         fragmentView = inflater.inflate(R.layout.fragment_search, container, false)
         return fragmentView
     }
@@ -158,9 +170,50 @@ class SearchFragment : Fragment() {
                 // 필요한 키-값 쌍을 담은 bundle을 인자로 줍니다.
                 fragment.arguments = bundle
 
-
                 // 프레그먼트를 전환합니다.
                 activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+            }
+
+            // 2018년 11월 9일 팀장 박신우의 개발 메모입니다.
+            // 검색화면에서 찾고자 하는 사용자의 이메일 아이디를 입력하고 검색 버튼을 클릭하면 해당 유저의 프로필로 이동합니다.
+            search_btn.setOnClickListener {
+                if(search_user_email.text.isNullOrBlank()){
+                    Toast.makeText(context, "찾고자 하는 사용자의 이메일 아이디를 입력해주세요.", Toast.LENGTH_LONG)
+                }else{
+                    // search_user_email에 사용자가 입력한 이메일 아이디가 존재하는지 먼저 조회합니다.
+                    // 존재하지 않으면 존재하지 않는다는 토스트 메세지를 띄우고
+                    // 존재한다면 그 유저의 프로필 화면으로 fragment를 전환해줍니다.
+                    var email = search_user_email.text.toString()
+
+                    /*
+                    파이어베이스 user 디렉터리에서 데이터를 가져오고
+                    사용자가 검색할때 입력한 이메일과 동일한 이메일 값을 갖는 컬렉션에서 uid를 뽑아옵니다.
+                    뽑아온 uid와 email을 이용해서 fragment를 전환하면 됩니다.
+                     */
+                    FirebaseFirestore.getInstance().collection("users").whereEqualTo("userEmail", email).get().addOnCompleteListener {
+                        task: Task<QuerySnapshot> ->
+                        if(task.isSuccessful){
+                            for(document in task.result){
+                                // 찾는 이메일과 일치하는 이메일이 있는 데이터에서 uid를 뽑아옵니다.
+                                var uid = document.data["uid"].toString()
+
+                                // 넘어가야할 프레그먼트인 유저 프로필 프레그먼트
+                                val fragment = UserProfileFragment()
+                                val bundle = Bundle()
+
+                                bundle.putString("destinationUid", uid)
+                                bundle.putString("userEmail", email)
+
+                                fragment.arguments = bundle
+                                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+
+                                break
+                            }
+                        } else{
+                            Toast.makeText(context, "찾으시는 사용자는 존재하지 않습니다!", Toast.LENGTH_LONG)
+                        }
+                    }
+                }
             }
 
             /*

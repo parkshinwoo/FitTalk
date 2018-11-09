@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <ImageView
+        android:id="@+id/alarmviewItem_imageview_profile"
+        android:src="@drawable/ic_account"
+        android:layout_margin="7.5dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp" />
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_margin="7.5dp"
+        tools:text = "알람 내용"
+        android:id="@+id/alarmviewItem_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

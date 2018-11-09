@@ -19,8 +19,6 @@ import fourpeopleforcolor.fittalk.data_trasfer_object.PhotoDTO
 import kotlinx.android.synthetic.main.activity_upload_photo.*
 import java.text.SimpleDateFormat
 import java.util.*
-import android.os.SystemClock
-import android.view.View
 
 
 class UploadPhotoActivity : AppCompatActivity() {
@@ -121,11 +119,13 @@ class UploadPhotoActivity : AppCompatActivity() {
             // 사진이 업로드된 시각입니다. 시스템 시각을 기준으로 합니다.
             photoDTO.timestamp = System.currentTimeMillis()
 
+            var title = photoDTO.userEmail + photoDTO.timestamp
+
             // 파이어베이스 스토어(데이터베이스)에 사진과 사진에 관련된 정보를 업로드합니다.
             // 실제 사진 파일은 스토리지(저장소)에 저장합니다.
             // 사진의 uri(주소)와 사진에 관련된 정보들(사용자 느낌, 사용자 uid, 이메일 계정 등)을 함께 묶어서 데이터베이스에 저장하는 겁니다.
             // images라는 디렉터리를 생성하고 그곳에 업로드합니다.
-            firestore?.collection("images")?.document()?.set(photoDTO)
+            firestore?.collection("images")?.document(title)?.set(photoDTO)
 
             setResult(Activity.RESULT_OK)
 

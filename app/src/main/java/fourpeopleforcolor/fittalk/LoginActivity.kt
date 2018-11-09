@@ -12,6 +12,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
+import fourpeopleforcolor.fittalk.data_trasfer_object.UserDTO
 import kotlinx.android.synthetic.main.activity_login.*
 
 // 2018년 9월 14일 팀장 박신우의 개발 메모입니다.
@@ -32,6 +34,8 @@ class LoginActivity : AppCompatActivity() {
     // 파이어베이스 계정 인증을 위한 변수
     var auth : FirebaseAuth? = null
 
+    var firestore : FirebaseFirestore? = null
+
     // 구글 로그인 계정을 위한 변수
     var googleSignInClient : GoogleSignInClient? = null
 
@@ -43,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
 
         // 이메일 계정 생성 및 로그인 버튼에 이벤트를 다는겁니다. (activity_login.xml 디자인을 참고하세요)
         email_login_button.setOnClickListener {
@@ -74,6 +79,20 @@ class LoginActivity : AppCompatActivity() {
                 if(task.isSuccessful){
                     // 계정 생성이 성공하면 메인 액티비티로 이동합니다.
                     // currentUser라는건 현재 회원가입 및 로그인을 시도하는 유저입니다. 즉 사용자이죠
+
+                    /* 2018년 11월 19일 팀장 박신우의 개발 메모입니다.
+                    계정을 생성할때 새롭게 생성된 사용자의 uid, 이메일 아이디를 데이터베이스에 저장합니다.
+                    이 정보는 SearchFragment에서 이메일 아이디로 사용자를 검색할때 사용됩니다.
+
+                    verification의 필요성?
+                     */
+                    var userDTO = UserDTO()
+
+                    userDTO.uid = auth?.currentUser?.uid
+                    userDTO.userEmail = auth?.currentUser?.email
+
+                    firestore?.collection("users")?.document(userDTO.userEmail!!)?.set(userDTO)
+
                     moveMainPage(auth?.currentUser)
                 }else if(task.exception?.message.isNullOrEmpty()){
                     // 예외가 발생하면 메세지를 찍어주는 기능입니다.
@@ -121,6 +140,18 @@ class LoginActivity : AppCompatActivity() {
 
             task ->
             if(task.isSuccessful){
+
+                /* 2018년 11월 19일 팀장 박신우의 개발 메모입니다.
+                    계정을 생성할때 새롭게 생성된 사용자의 uid, 이메일 아이디를 데이터베이스에 저장합니다.
+                    이 정보는 SearchFragment에서 이메일 아이디로 사용자를 검색할때 사용됩니다.
+                     */
+                var userDTO = UserDTO()
+
+                userDTO.uid = auth?.currentUser?.uid
+                userDTO.userEmail = auth?.currentUser?.email
+
+                firestore?.collection("users")?.document(userDTO.userEmail!!)?.set(userDTO)
+
                 moveMainPage(auth?.currentUser)
             }
         }

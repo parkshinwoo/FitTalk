@@ -19,12 +19,13 @@ import com.google.firebase.firestore.ListenerRegistration
 import fourpeopleforcolor.fittalk.LoginActivity
 import fourpeopleforcolor.fittalk.MainActivity
 import fourpeopleforcolor.fittalk.R
+import fourpeopleforcolor.fittalk.data_trasfer_object.AlarmDTO
 import fourpeopleforcolor.fittalk.data_trasfer_object.FollowDTO
 import fourpeopleforcolor.fittalk.data_trasfer_object.PhotoDTO
+import fourpeopleforcolor.fittalk.navigation_activity.CommentActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
-
 
 
 class UserProfileFragment : Fragment() {
@@ -47,6 +48,8 @@ class UserProfileFragment : Fragment() {
     // 현재 사용자가 선택한 사용자의 userEmail
     var selectedUserEmail : String? = null
 
+    // 2018년 11월 9일 팀장 박신우의 개발 메모입니다. Fcm, 즉 파이어베이스 클라우드 메세징을 위한 변수를 향후 추가하고 백그라운드 푸쉬알람을 구현해야합니다.
+
     // 2018년 9월 26일 팀장 박신우의 개발 메모입니다.
     // snapshot은 항상 데이터베이스를 지켜보다가 변경사항이 생기면 뷰한테 던져주는 역할을 합니다.
     // 현재 사용하는 파이어베이스 데이터베이스가 push driven 방식이므로 스냅샷을 쓰면
@@ -68,8 +71,6 @@ class UserProfileFragment : Fragment() {
         firestore = FirebaseFirestore.getInstance()
 
         fragmentView = inflater.inflate(R.layout.fragment_user_profile, container, false)
-
-
 
 
         if(arguments != null){
@@ -190,7 +191,6 @@ class UserProfileFragment : Fragment() {
 
         // 파이어베이스 데이터베이스에 새 collection을 만듭니다.
         // 이름은 follows입니다. 팔로우 관련 정보를 담습니다.
-
         // 현재 사용자의 uid로 document를 하나 만듭니다.
         // 현재 사용자가 팔로잉 하는 경우를 위한 변수입니다.
         var DocumentFollowing = firestore!!.collection("follows").document(currentUserUid!!)
@@ -266,11 +266,32 @@ class UserProfileFragment : Fragment() {
                 followDTO.followerCount = followDTO.followerCount + 1
                 followDTO.followers[currentUserUid!!] = true
 
-
+                /*
+                  11월 10일 팀장 박신우의 개발 메모입니다.
+                  알람 화면을 위한 함수 호출입니다.
+                */
+                // 다른 사람이 나를 팔로우하는 이벤트가 발생했을시 알람을 발생합니다.
+                // 즉 팔로워가 생겼다는 알람을 만드는겁니다.
+                followerAlarm(selectedUid)
             }
             transaction.set(DocumentFollower, followDTO)
             return@runTransaction
         }
+    }
+
+    fun followerAlarm(destinationUid : String?){
+        var alarmDTO = AlarmDTO()
+        alarmDTO.destinationUid = destinationUid
+        alarmDTO.userEmail = auth?.currentUser!!.email
+        alarmDTO.uid = auth?.currentUser!!.uid
+        alarmDTO.kind = 2
+        alarmDTO.timestamp = System.currentTimeMillis()
+
+        var title = alarmDTO.userEmail + alarmDTO.kind + alarmDTO.timestamp
+
+        FirebaseFirestore.getInstance().collection("alarms").document(title).set(alarmDTO)
+
+        //
     }
 
     // 프로필 이미지를 가져오는 함수입니다.
@@ -331,17 +352,23 @@ class UserProfileFragment : Fragment() {
     inner class UserProfileFragmentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
         var photoDTOs : ArrayList<PhotoDTO>
+        var photoUidList : ArrayList<String>
 
         init {
             photoDTOs = ArrayList()
+            photoUidList = ArrayList() // 팀장 박신우 11월 10일 추가. 유저 프로필 화면에서 게시글을 꾹 누르면 댓글 화면으로 이동하는 기능을 추가했습니다.
 
             photoRecyclerViewListenerRegistration = firestore?.collection("images")?.whereEqualTo("uid", selectedUid)?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
 
                 if(querySnapshot == null) return@addSnapshotListener
 
+                photoDTOs.clear()
+                photoUidList.clear()
+
                 // 데이터베이스로 부터 데이터를 긁어오고 PhotoDTO 타입으로 캐스팅해서 그릇에 담습니다.
                 for (snapshot in querySnapshot.documents){
                     photoDTOs.add(snapshot.toObject(PhotoDTO::class.java))
+                    photoUidList.add(snapshot.id)
                 }
 
                 // 게시물 개수를 표시해줍니다.
@@ -373,6 +400,25 @@ class UserProfileFragment : Fragment() {
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             var imageView = (holder as CustomViewHolder).imageView
             Glide.with(holder.itemView.context).load(photoDTOs[position].imageUrl).apply(RequestOptions().centerCrop()).into(imageView)
+
+            /*
+              2018년 11월 10일 팀장 박신우의 개발 메모입니다.
+              유저 프로필 화면에서 게시글을 꾹 길게 누르면 해당 게시글의 댓글 화면으로 이동하는 기능을 구현했습니다.
+             */
+            imageView.setOnLongClickListener {
+                var intent = Intent(fragmentView?.context, CommentActivity::class.java)
+
+                // 선택한 이미지에 해당하는 정보를 긁어오기 위함
+                intent.putExtra("photoUid", photoUidList[position])
+
+                // 코멘트 엑티비티에서 알람 이벤트 함수에 넘겨줄 파라미터
+                intent.putExtra("destinationUid", photoDTOs[position].uid)
+
+                startActivity(intent)
+
+                true
+            }
+
 
             // 팔로워 관련 부분을 클락했을때 팔로워 목록으로 화면을 전환합니다.
             fragmentView?.account_follower_count?.setOnClickListener {

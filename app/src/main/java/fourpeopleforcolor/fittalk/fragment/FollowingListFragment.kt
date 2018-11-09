@@ -17,7 +17,7 @@ import com.google.firebase.firestore.ListenerRegistration
 import fourpeopleforcolor.fittalk.MainActivity
 import fourpeopleforcolor.fittalk.R
 import fourpeopleforcolor.fittalk.data_trasfer_object.FollowDTO
-import fourpeopleforcolor.fittalk.data_trasfer_object.PhotoDTO
+import fourpeopleforcolor.fittalk.data_trasfer_object.UserDTO
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_following_list.view.*
 import kotlinx.android.synthetic.main.recyclerview_item_design_following_list.view.*
@@ -85,18 +85,16 @@ class FollowingListFragment : Fragment() {
         fragmentView?.following_list_recyclerview?.layoutManager = LinearLayoutManager(activity)
     }
 
+    /*
+    11월 9일 팀장 박신우 개발 메모입니다.
+    users 데이터베이스를 사용하는 방식으로 변경했습니다.
+     */
     inner class FollowingListFragmentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
-        val photoDTOs: ArrayList<PhotoDTO>
-        val photoUidSet: HashSet<String>
+        val userDTOs: ArrayList<UserDTO>
 
         init {
-            photoDTOs = ArrayList()
-            /* 11월 7일 팀장 박신우의 개발 메모입니다.
-               Set은 중복 키를 허용하지 않는다는 점을 명심하세요
-               하나의 사용자가 게시글을 여러개 올렸다 하더도 팔로워 목록에는 그 사용자가 한번만 표시되야합니다.
-                */
-            photoUidSet = HashSet()
+            userDTOs = ArrayList()
 
             firestore?.collection("follows")?.document(selectedUid!!)?.get()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -120,29 +118,25 @@ class FollowingListFragment : Fragment() {
                         // 프레그먼트를 전환합니다.
                         activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
                     }else {
-                        getPhotos(followingDTO.followings)
+                        getUserInfo(followingDTO.followings)
                     }
                 }
             }
         }
 
-        // 실질적으로 사진을 사용하는건 아니고 사진 데이터베이스에 있는 정보만 사용합니다.
-        fun getPhotos(followings: MutableMap<String, Boolean>) {
+        fun getUserInfo(followings: MutableMap<String, Boolean>) {
 
-            followingListenerRegistration = firestore?.collection("images")?.orderBy("timestamp")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+            followingListenerRegistration = firestore?.collection("users")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 if (querySnapshot == null) return@addSnapshotListener
 
-                photoDTOs.clear()
-                photoUidSet.clear()
+                userDTOs.clear()
 
                 for (snapshot in querySnapshot!!.documents) {
 
-                    var item = snapshot.toObject(PhotoDTO::class.java)
+                    var item = snapshot.toObject(UserDTO::class.java)
 
                     if (followings.keys.contains(item.uid)) {
-                        photoDTOs.add(item)
-                        // 게시물을 올린 사람의 uid를 담습니다. Set이니까 중복은 허용 안됩니다.
-                        photoUidSet.add(item.uid!!)
+                        userDTOs.add(item)
                     }
                 }
                 notifyDataSetChanged()
@@ -158,19 +152,14 @@ class FollowingListFragment : Fragment() {
         private inner class CustomViewHolder(view: View?) : RecyclerView.ViewHolder(view)
 
         override fun getItemCount(): Int {
-            // Set의 사이즈만큼만 화면에 뿌릴겁니다. 중복이 허용안되니 uid 당 1번씩만 뿌려집니다.
-            return photoUidSet.size
+            return userDTOs.size
         }
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             var viewHolder = (holder as FollowingListFragment.FollowingListFragmentRecyclerViewAdapter.CustomViewHolder).itemView
 
-            // 프로필 이미지 가져오기
-            /* 11월 7일 팀장 박신우 개발 메모입니다.
-             * 프로필 이미지 등록 안한 경우에 대한 예외처리 필요합니다.
-             * 예외처리를 안하니까 프로필 이미지 등록을 안한 계정에 대해서는 동작 안하는 기능이 몇가지가 있습니다.
-            */
-            firestore?.collection("profileImages")?.document(photoDTOs[position].uid!!)?.get()?.addOnCompleteListener { task ->
+
+            firestore?.collection("profileImages")?.document(userDTOs[position].uid!!)?.get()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     var url = task.result["image"]
 
@@ -179,7 +168,7 @@ class FollowingListFragment : Fragment() {
             }
 
             // 이메일 아이디 가져오기
-            viewHolder.following_list_email.text = photoDTOs!![position].userEmail
+            viewHolder.following_list_email.text = userDTOs!![position].userEmail
 
             // 프로필 사진 누르면 해당 프로필로 이동하는 기능
             viewHolder.following_list_imageview_profile.setOnClickListener {
@@ -187,8 +176,8 @@ class FollowingListFragment : Fragment() {
                 var fragment = UserProfileFragment()
                 var bundle = Bundle()
 
-                bundle.putString("destinationUid", photoDTOs[position].uid)
-                bundle.putString("userId", photoDTOs[position].userEmail)
+                bundle.putString("destinationUid", userDTOs[position].uid)
+                bundle.putString("userId", userDTOs[position].userEmail)
 
                 fragment.arguments = bundle
                 activity!!.supportFragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit()

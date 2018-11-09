@@ -37,9 +37,9 @@ class UploadScheduleActivity : AppCompatActivity() {
 
     /*
     11월 7일 팀장 박신우 개발 메모입니다.
-    운동 계획에 아무것도 입력하지 않은 경우 예외처리를 해줘야합니다.
      */
     // 운동 계획을 업로드하는 함수입니다.
+    // 데이터 구조 변경 가능성에 따라 코드도 변경될 수 있습니다.
     fun scheduleUpload() {
 
         // 일주일이 7일이므로 그만큼 반복을 돕니다.
@@ -60,7 +60,7 @@ class UploadScheduleActivity : AppCompatActivity() {
                     i++
                 }
                 3 -> {
-                    thrUpload()
+                    thuUpload()
                     i++
                 }
                 4 -> {
@@ -92,7 +92,14 @@ class UploadScheduleActivity : AppCompatActivity() {
         scheduleDTO.timestamp = System.currentTimeMillis()
         scheduleDTO.schedule = upload_schedule_mon.text.toString()
 
-        firestore?.collection("schedules")?.document()?.set(scheduleDTO)
+        var title = scheduleDTO.userEmail + scheduleDTO.timestamp
+
+        // 운동계획을 입력하지 않은 경우 토스트 메세지를 띄우는 예외처리입니다.
+        if(scheduleDTO.schedule.isNullOrBlank()){
+            Toast.makeText(applicationContext, "운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
+        } else{
+            firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
+        }
     }
 
     fun tueUpload(){
@@ -104,7 +111,13 @@ class UploadScheduleActivity : AppCompatActivity() {
         scheduleDTO.timestamp = System.currentTimeMillis()
         scheduleDTO.schedule = upload_schedule_tue.text.toString()
 
-        firestore?.collection("schedules")?.document()?.set(scheduleDTO)
+        var title = scheduleDTO.userEmail + scheduleDTO.timestamp
+
+        if(scheduleDTO.schedule.isNullOrBlank()){
+            Toast.makeText(applicationContext, "운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
+        } else{
+            firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
+        }
 
     }
 
@@ -117,19 +130,31 @@ class UploadScheduleActivity : AppCompatActivity() {
         scheduleDTO.timestamp = System.currentTimeMillis()
         scheduleDTO.schedule = upload_schedule_wed.text.toString()
 
-        firestore?.collection("schedules")?.document()?.set(scheduleDTO)
+        var title = scheduleDTO.userEmail + scheduleDTO.timestamp
+
+        if(scheduleDTO.schedule.isNullOrBlank()){
+            Toast.makeText(applicationContext, "운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
+        } else{
+            firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
+        }
     }
 
-    fun thrUpload(){
+    fun thuUpload(){
         var scheduleDTO = ScheduleDTO()
 
         scheduleDTO.uid = auth?.currentUser?.uid
         scheduleDTO.userEmail = auth?.currentUser?.email
         scheduleDTO.dayOfWeek = "목요일"
         scheduleDTO.timestamp = System.currentTimeMillis()
-        scheduleDTO.schedule = upload_schedule_thr.text.toString()
+        scheduleDTO.schedule = upload_schedule_thu.text.toString()
 
-        firestore?.collection("schedules")?.document()?.set(scheduleDTO)
+        var title = scheduleDTO.userEmail + scheduleDTO.timestamp
+
+        if(scheduleDTO.schedule.isNullOrBlank()){
+            Toast.makeText(applicationContext, "운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
+        } else{
+            firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
+        }
     }
 
     fun friUpload(){
@@ -141,7 +166,13 @@ class UploadScheduleActivity : AppCompatActivity() {
         scheduleDTO.timestamp = System.currentTimeMillis()
         scheduleDTO.schedule = upload_schedule_fri.text.toString()
 
-        firestore?.collection("schedules")?.document()?.set(scheduleDTO)
+        var title = scheduleDTO.userEmail + scheduleDTO.timestamp
+
+        if(scheduleDTO.schedule.isNullOrBlank()){
+            Toast.makeText(applicationContext, "운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
+        } else{
+            firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
+        }
     }
 
     fun satUpload(){
@@ -153,7 +184,13 @@ class UploadScheduleActivity : AppCompatActivity() {
         scheduleDTO.timestamp = System.currentTimeMillis()
         scheduleDTO.schedule = upload_schedule_sat.text.toString()
 
-        firestore?.collection("schedules")?.document()?.set(scheduleDTO)
+        var title = scheduleDTO.userEmail + scheduleDTO.timestamp
+
+        if(scheduleDTO.schedule.isNullOrBlank()){
+            Toast.makeText(applicationContext, "운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
+        } else{
+            firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
+        }
     }
 
     fun sunUpload(){
@@ -165,6 +202,12 @@ class UploadScheduleActivity : AppCompatActivity() {
         scheduleDTO.timestamp = System.currentTimeMillis()
         scheduleDTO.schedule = upload_schedule_sun.text.toString()
 
-        firestore?.collection("schedules")?.document()?.set(scheduleDTO)
+        var title = scheduleDTO.userEmail + scheduleDTO.timestamp
+
+        if(scheduleDTO.schedule.isNullOrBlank()){
+            Toast.makeText(applicationContext, "운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
+        } else{
+            firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
+        }
     }
 }

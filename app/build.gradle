@@ -57,6 +57,8 @@ dependencies {
     //캘린더
     compile 'com.prolificinteractive:material-calendarview:1.4.3'
 
+    // 파이어베이스 클라우드 메세징
+    implementation 'com.google.firebase:firebase-messaging:12.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

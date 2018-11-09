@@ -33,7 +33,7 @@ class ChatbotRecyclerViewAdapter(messageDTOs:ArrayList<MessageDTO>) : RecyclerVi
 
     }
 
-    class CustomViewHolder(view: View?) : RecyclerView.ViewHolder(view)
+    private inner class CustomViewHolder(view: View?) : RecyclerView.ViewHolder(view)
 
     override fun getItemCount(): Int {
         return messageDTOs.size

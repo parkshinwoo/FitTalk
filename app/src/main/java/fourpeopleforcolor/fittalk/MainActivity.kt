@@ -170,8 +170,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         if(requestCode == PICK_PROFILE_FROM_ALBUM && resultCode == Activity.RESULT_OK){
             var imageUri = data?.data
             var currentUserUid = FirebaseAuth.getInstance().currentUser!!.uid
+            var userEmali = FirebaseAuth.getInstance().currentUser!!.email
 
-            FirebaseStorage.getInstance().reference.child("userProfileImages").child(currentUserUid).putFile(imageUri!!).addOnCompleteListener {
+            FirebaseStorage.getInstance().reference.child("userProfileImages").child(userEmali!!).putFile(imageUri!!).addOnCompleteListener {
                 task ->
                 // 사진의 url을 받아옵니다.
                 var url = task.result.downloadUrl.toString()
@@ -179,7 +180,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 // 사진의 url을 담습니다.
                 map["image"] = url
                 // 파이어베이스 데이터베이스에 profileImages라는 디렉터리를 만들고 그곳에 사진과 관련된 정보를 저장합니다.
-                FirebaseFirestore.getInstance().collection("profileImages").document(currentUserUid).set(map)
+                FirebaseFirestore.getInstance().collection("profileImages").document(currentUserUid!!).set(map)
             }
         }
 

@@ -57,6 +57,7 @@ class ScheduleFragment : Fragment() {
 
         // timestamp를 통해 최신순으로 정렬하고 사용자의 uid, 요일에 맞는 데이터를 가져옵니다.
         // schedules 디렉터리에 접근해서 timestamp(계획이 등록된 시스템 시간)으로 정렬해서 최신순으로 합니다.
+        // 데이터 구조 변경 가능성에 따라 코드도 변경될 수 있습니다.
         FirebaseFirestore.getInstance().collection("schedules").orderBy("timestamp").get().addOnCompleteListener { task: Task<QuerySnapshot> ->
             if (task.isSuccessful) {
                 // timestamp로 orderby 쿼리를 날리면
@@ -74,7 +75,7 @@ class ScheduleFragment : Fragment() {
                             fragmentView?.schedule_wed?.text = result.data["schedule"].toString()
                         }
                         if (result.data["dayOfWeek"] == "목요일") {
-                            fragmentView?.schedule_thr?.text = result.data["schedule"].toString()
+                            fragmentView?.schedule_thu?.text = result.data["schedule"].toString()
                         }
                         if (result.data["dayOfWeek"] == "금요일") {
                             fragmentView?.schedule_fri?.text = result.data["schedule"].toString()
