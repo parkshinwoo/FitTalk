@@ -8,10 +8,10 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_marginHorizontal="5dp"
-        android:layout_height="100dp">
+        android:layout_height="65dp">
 
         <Button
-            android:layout_margin="20dp"
+            android:layout_margin="2dp"
             android:layout_alignParentRight="true"
             android:text="@string/search_user_email"
             android:id="@+id/search_btn"
@@ -23,7 +23,7 @@
             />
         <EditText
             android:hint="@string/search_hint"
-            android:layout_margin="20dp"
+            android:layout_margin="5dp"
             android:layout_toLeftOf="@+id/search_btn"
             android:id="@+id/search_user_email"
             android:layout_width="match_parent"

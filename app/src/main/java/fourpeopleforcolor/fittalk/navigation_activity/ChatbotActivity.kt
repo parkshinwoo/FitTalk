@@ -276,16 +276,17 @@ class ChatbotActivity : AppCompatActivity() {
         // node js를 지금 배워가고 있는 단계라서 이 부분은 지금은 코틀린으로 작성했습니다.
         // 추후 node js 활용법이 익숙해지면 node js로 migration할게요
 
-
-
-
-
-
-
         // timestamp를 통해 최신순으로 정렬하고 사용자의 uid, 요일에 맞는 데이터를 가져옵니다.
         // schedules 디렉터리에 접근해서 timestamp(계획이 등록된 시스템 시간)으로 정렬해서 최신순으로 합니다.
         // 현재 챗봇에게 말을 건 유저의 uid에 해당하는 데이터만 따지고
         // 사용자가 질문한 요일에 해당하는 데이터만으로 챗봇의 답장 메세지를 구성합니다.
+        /*
+        11월 10일 팀장 박신우의 개발메모입니다. 운동 계획을 등록하지 않은 경우에 대한 예외처리를 해야합니다.
+        아래 코드는 동작은 하지만 다소 아쉬운 처리입니다.
+         */
+
+        var message = "아직 운동 계획을 등록하지 않으셨습니다! 어서 등록해주세요!"
+
         FirebaseFirestore.getInstance().collection("schedules").orderBy("timestamp").get().addOnCompleteListener {
             task: Task<QuerySnapshot> ->
             if(task.isSuccessful){
@@ -297,19 +298,23 @@ class ChatbotActivity : AppCompatActivity() {
                     if(result.data["uid"] == FirebaseAuth.getInstance()?.currentUser!!.uid){
                         // 챗봇에게 물어본 요일에 해당하는 데이터만 가져오기 위한 if문입니다.
                         if(result.data["dayOfWeek"] == dayOfWeekText){
-                            // 메세지의 형식을 갖추고 DTO에 넣습니다.
-                            var message = dayOfWeekText + "의 운동 계획은 " + result.data["schedule"] + "입니다!" + "\n" + "당신은 할 수 있어요! 제가 응원할게요"
+
+                            messageDTOs.removeAt(messageDTOs.size-1)
+
+                            message = dayOfWeekText + "의 운동 계획은 " + result.data["schedule"] + "입니다!"
                             messageDTOs.add(MessageDTO(false, message))
                         }
                     }
-
                     // 리사이클러뷰 새로고침 및 마지막 위치로 이동
                     recyclerview.adapter.notifyDataSetChanged()
                     recyclerview.smoothScrollToPosition(messageDTOs.size - 1)
-
                 }
             }
         }
+        messageDTOs.add(MessageDTO(false, message))
+        // 리사이클러뷰 새로고침 및 마지막 위치로 이동
+        recyclerview.adapter.notifyDataSetChanged()
+        recyclerview.smoothScrollToPosition(messageDTOs.size - 1)
     }
 
     fun openWeb(){
