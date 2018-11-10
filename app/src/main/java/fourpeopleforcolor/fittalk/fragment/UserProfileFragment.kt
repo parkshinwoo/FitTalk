@@ -419,7 +419,6 @@ class UserProfileFragment : Fragment() {
                 true
             }
 
-
             // 팔로워 관련 부분을 클락했을때 팔로워 목록으로 화면을 전환합니다.
             fragmentView?.account_follower_count?.setOnClickListener {
 

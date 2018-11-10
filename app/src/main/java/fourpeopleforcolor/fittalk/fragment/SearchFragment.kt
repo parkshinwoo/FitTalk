@@ -68,7 +68,7 @@ class SearchFragment : Fragment() {
         // SearchFragment의 main view에 아랫쪽에서 커스텀하고 디자인한 이미지 뷰를 붙여줍니다.
         fragmentView?.search_fragment_recyclerview?.adapter = SearchFragmentRecyclerviewAdapter()
         // spanCount의 값을 3으로 줘야 한줄에 사진이 3장씩 그려집니다.
-        fragmentView?.search_fragment_recyclerview?.layoutManager = GridLayoutManager(activity, 3)
+        fragmentView?.search_fragment_recyclerview?.layoutManager = GridLayoutManager(activity!!, 3)
     }
 
     // 뷰가 꺼질때 실행된느 함수입니다. 이곳에서 스냅샷도 꺼야합니다.
@@ -177,8 +177,9 @@ class SearchFragment : Fragment() {
             // 2018년 11월 9일 팀장 박신우의 개발 메모입니다.
             // 검색화면에서 찾고자 하는 사용자의 이메일 아이디를 입력하고 검색 버튼을 클릭하면 해당 유저의 프로필로 이동합니다.
             search_btn.setOnClickListener {
+
                 if(search_user_email.text.isNullOrBlank()){
-                    Toast.makeText(context, "찾고자 하는 사용자의 이메일 아이디를 입력해주세요.", Toast.LENGTH_LONG)
+                    Toast.makeText(context, "찾고자 하는 사용자의 이메일 아이디를 입력해주세요!", Toast.LENGTH_LONG).show()
                 }else{
                     // search_user_email에 사용자가 입력한 이메일 아이디가 존재하는지 먼저 조회합니다.
                     // 존재하지 않으면 존재하지 않는다는 토스트 메세지를 띄우고
@@ -193,24 +194,27 @@ class SearchFragment : Fragment() {
                     FirebaseFirestore.getInstance().collection("users").whereEqualTo("userEmail", email).get().addOnCompleteListener {
                         task: Task<QuerySnapshot> ->
                         if(task.isSuccessful){
-                            for(document in task.result){
-                                // 찾는 이메일과 일치하는 이메일이 있는 데이터에서 uid를 뽑아옵니다.
-                                var uid = document.data["uid"].toString()
+                            if(task.result.isEmpty){
+                                Toast.makeText(context, "찾으시는 사용자는 존재하지 않습니다!", Toast.LENGTH_LONG).show()
+                            } else{
+                                for(document in task.result){
+                                    // 찾는 이메일과 일치하는 이메일이 있는 데이터에서 uid를 뽑아옵니다.
+                                    var uid = document.data["uid"].toString()
 
-                                // 넘어가야할 프레그먼트인 유저 프로필 프레그먼트
-                                val fragment = UserProfileFragment()
-                                val bundle = Bundle()
+                                    // 넘어가야할 프레그먼트인 유저 프로필 프레그먼트
+                                    val fragment = UserProfileFragment()
+                                    val bundle = Bundle()
 
-                                bundle.putString("destinationUid", uid)
-                                bundle.putString("userEmail", email)
+                                    bundle.putString("destinationUid", uid)
+                                    bundle.putString("userEmail", email)
 
-                                fragment.arguments = bundle
-                                activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+                                    fragment.arguments = bundle
 
-                                break
+                                    Toast.makeText(context, "찾으시는 사용자의 프로필로 이동합니다!", Toast.LENGTH_LONG).show()
+
+                                    activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+                                }
                             }
-                        } else{
-                            Toast.makeText(context, "찾으시는 사용자는 존재하지 않습니다!", Toast.LENGTH_LONG)
                         }
                     }
                 }

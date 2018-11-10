@@ -40,7 +40,7 @@ class CommentActivity : AppCompatActivity() {
         // 이미지 컬렉션 정보를 가져옵니다.
         // activity일때는 intent를 쓰고 fragment일때는 arguments를 쓴다는 점을 구분해주세요
         // 번들 사용해서 사용자 정보 가져올때 한 예제와 비슷합니다.
-        // 아래 두 값은 HomeFragment.kt 파일에서 처리됩니다.
+        // 아래 두 값은 HomeFragment.kt 파일에서 넘어옵니다.
         photoUid = intent.getStringExtra("photoUid")
         destinationUid = intent.getStringExtra("destinationUid")
 

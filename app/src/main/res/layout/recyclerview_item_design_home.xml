@@ -11,13 +11,14 @@
         android:layout_height="50dp">
         <ImageView
             android:id="@+id/detailviewitem_profile_image"
-            tools:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_account"
             android:layout_margin="7.5dp"
             android:layout_width="35dp"
             android:layout_height="35dp" />
         <TextView
             android:id="@+id/detailviewitem_profile_textview"
             tools:text="User Name"
+            android:textColor="@color/orangePink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -31,7 +32,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:layout_marginLeft="8dp"
         android:layout_gravity="center_vertical"
         >
@@ -51,13 +52,16 @@
         android:id="@+id/detailviewitem_underarmourcounter_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="언더아머 0개"/>
+        android:text="언더아머 0개"
+        android:textColor="@color/babyPink"
+        android:layout_marginLeft="8dp"/>
     <TextView
         android:id="@+id/detailviewitem_explain_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="5dp"
         />
 
 </LinearLayout>
