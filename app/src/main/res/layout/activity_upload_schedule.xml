@@ -56,7 +56,7 @@
         android:layout_marginStart="29dp"
         android:layout_marginTop="56dp"
         android:text="월"
-        android:background="@color/creamy_violet"
+        android:background="@color/orangePink"
         android:textColor="@color/colorWhite"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="29dp" />
@@ -89,7 +89,7 @@
         android:layout_alignStart="@+id/mon"
         android:layout_marginTop="116dp"
         android:text="화"
-        android:background="@color/creamy_violet"
+        android:background="@color/orangePink"
         android:textColor="@color/colorWhite"
         android:layout_alignLeft="@+id/mon" />
 
@@ -118,7 +118,7 @@
         android:layout_alignStart="@+id/tue"
         android:layout_marginTop="176dp"
         android:text="수"
-        android:background="@color/creamy_violet"
+        android:background="@color/orangePink"
         android:textColor="@color/colorWhite"
         android:layout_alignLeft="@+id/tue" />
 
@@ -148,7 +148,7 @@
         android:layout_alignStart="@+id/tue"
         android:layout_marginTop="234dp"
         android:text="목"
-        android:background="@color/creamy_violet"
+        android:background="@color/orangePink"
         android:textColor="@color/colorWhite"
         android:layout_alignLeft="@+id/tue" />
 
@@ -178,7 +178,7 @@
 
         android:layout_marginTop="296dp"
         android:text="금"
-        android:background="@color/creamy_violet"
+        android:background="@color/orangePink"
         android:textColor="@color/colorWhite"
         android:layout_alignLeft="@+id/tue" />
 
@@ -209,7 +209,7 @@
 
         android:layout_marginTop="356dp"
         android:text="토"
-        android:background="@color/creamy_violet"
+        android:background="@color/orangePink"
         android:textColor="@color/colorWhite"
         android:layout_alignLeft="@+id/tue" />
 
@@ -240,7 +240,7 @@
 
         android:layout_marginTop="416dp"
         android:text="일"
-        android:background="@color/creamy_violet"
+        android:background="@color/orangePink"
         android:textColor="@color/colorWhite"
         android:layout_alignLeft="@+id/tue" />
 

@@ -70,6 +70,7 @@ class ScheduleFragment : Fragment() {
                         }
                         if (result.data["dayOfWeek"] == "화요일") {
                             fragmentView?.schedule_tue?.text = result.data["schedule"].toString()
+
                         }
                         if (result.data["dayOfWeek"] == "수요일") {
                             fragmentView?.schedule_wed?.text = result.data["schedule"].toString()
@@ -79,12 +80,15 @@ class ScheduleFragment : Fragment() {
                         }
                         if (result.data["dayOfWeek"] == "금요일") {
                             fragmentView?.schedule_fri?.text = result.data["schedule"].toString()
+
                         }
                         if (result.data["dayOfWeek"] == "토요일") {
                             fragmentView?.schedule_sat?.text = result.data["schedule"].toString()
+
                         }
                         if (result.data["dayOfWeek"] == "일요일") {
                             fragmentView?.schedule_sun?.text = result.data["schedule"].toString()
+
                         }
                     }
                 }

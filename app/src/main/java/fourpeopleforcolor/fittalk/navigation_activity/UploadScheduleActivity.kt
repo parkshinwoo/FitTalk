@@ -100,9 +100,9 @@ class UploadScheduleActivity : AppCompatActivity() {
 
         var title = scheduleDTO.userEmail + scheduleDTO.dayOfWeek
 
-        // 운동계획을 입력하지 않은 경우 토스트 메세지를 띄우는 예외처리입니다.
+
         if(scheduleDTO.schedule.isNullOrBlank()){
-            Toast.makeText(applicationContext, "월요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
+            //Toast.makeText(applicationContext, "월요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
         } else{
             firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
         }
@@ -120,8 +120,7 @@ class UploadScheduleActivity : AppCompatActivity() {
         var title = scheduleDTO.userEmail + scheduleDTO.dayOfWeek
 
         if(scheduleDTO.schedule.isNullOrBlank()){
-            Toast.makeText(applicationContext, "화요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
-
+            //Toast.makeText(applicationContext, "화요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
         } else{
             firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
         }
@@ -140,8 +139,7 @@ class UploadScheduleActivity : AppCompatActivity() {
         var title = scheduleDTO.userEmail + scheduleDTO.dayOfWeek
 
         if(scheduleDTO.schedule.isNullOrBlank()){
-            Toast.makeText(applicationContext, "수요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
-
+            //Toast.makeText(applicationContext, "수요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
         } else{
             firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
         }
@@ -159,8 +157,7 @@ class UploadScheduleActivity : AppCompatActivity() {
         var title = scheduleDTO.userEmail + scheduleDTO.dayOfWeek
 
         if(scheduleDTO.schedule.isNullOrBlank()){
-            Toast.makeText(applicationContext, "목요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
-
+            //Toast.makeText(applicationContext, "목요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
         } else{
             firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
         }
@@ -178,8 +175,7 @@ class UploadScheduleActivity : AppCompatActivity() {
         var title = scheduleDTO.userEmail + scheduleDTO.dayOfWeek
 
         if(scheduleDTO.schedule.isNullOrBlank()){
-            Toast.makeText(applicationContext, "금요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
-
+            //Toast.makeText(applicationContext, "금요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
         } else{
             firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
         }
@@ -197,8 +193,7 @@ class UploadScheduleActivity : AppCompatActivity() {
         var title = scheduleDTO.userEmail + scheduleDTO.dayOfWeek
 
         if(scheduleDTO.schedule.isNullOrBlank()){
-            Toast.makeText(applicationContext, "토요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
-
+            //Toast.makeText(applicationContext, "토요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
         } else{
             firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
         }
@@ -216,8 +211,7 @@ class UploadScheduleActivity : AppCompatActivity() {
         var title = scheduleDTO.userEmail + scheduleDTO.dayOfWeek
 
         if(scheduleDTO.schedule.isNullOrBlank()){
-            Toast.makeText(applicationContext, "일요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
-
+            //Toast.makeText(applicationContext, "일요일의 운동 계획을 입력해주세요!", Toast.LENGTH_LONG).show()
         } else{
             firestore?.collection("schedules")?.document(title)?.set(scheduleDTO)
         }

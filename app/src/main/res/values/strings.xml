@@ -62,7 +62,7 @@
     <string name="hint_schedule_content">당신의 운동 계획을 적어주세요!</string>
     <string name="upload_schedule">등록</string>
     <string name="update_schedule">업데이트</string>
-    <string name="upload_schedule_success">등록 성공</string>
+    <string name="upload_schedule_success">운동 계획을 등록했습니다!</string>
 
     <!-- Chatbot -->
     <string name="hint_chatbot">FitTalk에게 말을 걸어보세요!</string>
