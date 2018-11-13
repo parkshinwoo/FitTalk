@@ -159,6 +159,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         toolbar_username.visibility = View.GONE
         // 11/7 팀장 박신우 스케쥴 확인 버튼 추가
         toolbar_btn_schedule.visibility = View.GONE
+        // 11/13 팀장 박신우 다이렉트 메세지 버튼 추가
+        toolbar_btn_direct_message.visibility = View.GONE
         toolbar_title_image.visibility = View.VISIBLE
     }
 

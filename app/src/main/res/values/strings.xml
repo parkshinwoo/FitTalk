@@ -73,14 +73,14 @@
     <string name="search_user_email">검색</string>
     <string name="search_hint">이메일 아이디로 찾기!</string>
 
+    <!-- Direct Message -->
+    <string name="direct_message">보내기!</string>
+
     <!-- Toolbar -->
     <string name="back">Back</string>
 
     <!-- etc -->
     <item name="visible" type="id" />
     <item name="masked" type="id" />
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

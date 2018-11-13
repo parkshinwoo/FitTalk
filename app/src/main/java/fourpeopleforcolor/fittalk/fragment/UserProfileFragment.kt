@@ -23,6 +23,7 @@ import fourpeopleforcolor.fittalk.data_trasfer_object.AlarmDTO
 import fourpeopleforcolor.fittalk.data_trasfer_object.FollowDTO
 import fourpeopleforcolor.fittalk.data_trasfer_object.PhotoDTO
 import fourpeopleforcolor.fittalk.navigation_activity.CommentActivity
+import fourpeopleforcolor.fittalk.navigation_activity.DirectMessageActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
@@ -74,11 +75,11 @@ class UserProfileFragment : Fragment() {
 
 
         if(arguments != null){
-            // arguments가 null이 아니라면 넘어온 값이 있는 것입니다.
-            // 선택된 사람의 uid
-            selectedUid = arguments?.getString("destinationUid")
-            // 선택된 사람의 email
-            selectedUserEmail = arguments?.getString("userEmail")
+                // arguments가 null이 아니라면 넘어온 값이 있는 것입니다.
+                // 선택된 사람의 uid
+                selectedUid = arguments?.getString("destinationUid")
+                // 선택된 사람의 email
+                selectedUserEmail = arguments?.getString("userEmail")
 
             if(selectedUid != null && selectedUid == currentUserUid){
                 // 선택된 사람의 uid가 현재 사용자의 uid와 같은 경우입니다.
@@ -127,6 +128,9 @@ class UserProfileFragment : Fragment() {
                 mainActivity.toolbar_btn_back.visibility = View.VISIBLE
                 // 팀장 박신우 11/7 스케쥴 확인 버튼 추가
                 mainActivity.toolbar_btn_schedule.visibility = View.VISIBLE
+                // 팀장 박신우 11/13 다이렉트 메세지 버튼 추가
+                mainActivity.toolbar_btn_direct_message.visibility = View.VISIBLE
+
                 mainActivity.toolbar_username.visibility = View.VISIBLE
                 // SearchFragment에서 받아온 인자 값입니다.
                 mainActivity.toolbar_username.text = arguments?.getString("userEmail")
@@ -154,6 +158,19 @@ class UserProfileFragment : Fragment() {
                     activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
                 }
 
+                // 11/13 팀장 박신우 다이렉트 메세지 버튼 추가
+                // 메세지 버튼을 클릭하면 선택된 사용자와의 채팅 화면으로 이동합니다.
+                mainActivity.toolbar_btn_direct_message.setOnClickListener {
+                    // activity의 전환
+                    var intent = Intent(fragmentView?.context, DirectMessageActivity::class.java)
+
+                    // 특정 사용자에게 DM을 보내려하는 사용자의 UID 즉 현재 사용자의 UID를 넘깁니다.
+                    intent.putExtra("currentUid", currentUserUid)
+                    // DM을 보내고자 하는 대상 유저의 UID
+                    intent.putExtra("destinationUid", selectedUid)
+
+                    startActivity(intent)
+                }
                 // 다른 유저의 프로필 화면에서는 로그아웃 버튼이 아닌 팔로우 하기 버튼입니다.
                 // 팔로우 하기 버튼에 이벤트를 발생시킵니다.
                 fragmentView?.account_btn_follow_signout?.setOnClickListener {
@@ -161,7 +178,6 @@ class UserProfileFragment : Fragment() {
                 }
             }
         }
-
         return fragmentView
     }
 
@@ -398,6 +414,7 @@ class UserProfileFragment : Fragment() {
         // 유저 프로필 화면에서 팔로잉 수(숫자), 팔로워 수(숫자), 팔로잉이라는 텍스트, 팔로워라는 텍스트를 클릭했을때
         // 각각 팔로잉 리스트, 팔로워 리스트 fragment로 전환되는 기능을 추가했습니다.
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+
             var imageView = (holder as CustomViewHolder).imageView
             Glide.with(holder.itemView.context).load(photoDTOs[position].imageUrl).apply(RequestOptions().centerCrop()).into(imageView)
 
@@ -491,8 +508,5 @@ class UserProfileFragment : Fragment() {
                 activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
             }
         }
-
     }
-
-
 }

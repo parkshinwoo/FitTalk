@@ -70,6 +70,7 @@ class FollowerListFragment : Fragment() {
 
         var mainActivity = (activity as MainActivity)
         mainActivity.toolbar_btn_schedule.visibility = View.GONE
+        mainActivity.toolbar_btn_direct_message.visibility = View.GONE
 
         return fragmentView
     }
@@ -104,7 +105,7 @@ class FollowerListFragment : Fragment() {
                         // 팔로워, 팔로잉이 아예 없는 경우
                         // 해당 seletedUid로 조회했을때 이 유저를 팔로잉 하는 사람이 없다면
                         // 토스트 메세지를 출력해주고 사용자 프로필 화면으로 다시 이동시켜줍니다.
-                        Toast.makeText(activity,"이 사용자는 팔로워 수가 0입니다.", Toast.LENGTH_LONG).show()
+                        Toast.makeText(activity!!,"이 사용자는 팔로워 수가 0입니다.", Toast.LENGTH_LONG).show()
 
                         // 넘어가야할 프레그먼트인 유저 프로필 fragment
                         val fragment = UserProfileFragment()
