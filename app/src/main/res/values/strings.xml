@@ -75,6 +75,7 @@
 
     <!-- Direct Message -->
     <string name="direct_message">보내기!</string>
+    <string name="dm_hint">상대방에게 메세지를 보내보세요!</string>
 
     <!-- Toolbar -->
     <string name="back">Back</string>
