@@ -16,6 +16,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import fourpeopleforcolor.fittalk.DirectMessageActivity
 import fourpeopleforcolor.fittalk.LoginActivity
 import fourpeopleforcolor.fittalk.MainActivity
 import fourpeopleforcolor.fittalk.R
@@ -23,7 +24,6 @@ import fourpeopleforcolor.fittalk.data_trasfer_object.AlarmDTO
 import fourpeopleforcolor.fittalk.data_trasfer_object.FollowDTO
 import fourpeopleforcolor.fittalk.data_trasfer_object.PhotoDTO
 import fourpeopleforcolor.fittalk.navigation_activity.CommentActivity
-import fourpeopleforcolor.fittalk.navigation_activity.DirectMessageActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_user_profile.*
 import kotlinx.android.synthetic.main.fragment_user_profile.view.*
@@ -75,11 +75,12 @@ class UserProfileFragment : Fragment() {
 
 
         if(arguments != null){
-                // arguments가 null이 아니라면 넘어온 값이 있는 것입니다.
-                // 선택된 사람의 uid
-                selectedUid = arguments?.getString("destinationUid")
-                // 선택된 사람의 email
-                selectedUserEmail = arguments?.getString("userEmail")
+
+            // arguments가 null이 아니라면 넘어온 값이 있는 것입니다.
+            // 선택된 사람의 uid
+            selectedUid = arguments?.getString("destinationUid")
+            // 선택된 사람의 email
+            selectedUserEmail = arguments?.getString("userEmail")
 
             if(selectedUid != null && selectedUid == currentUserUid){
                 // 선택된 사람의 uid가 현재 사용자의 uid와 같은 경우입니다.
@@ -110,10 +111,31 @@ class UserProfileFragment : Fragment() {
                     // MainActivity.kt에서 아래 문장(startActivityForResult)의 결과를 받아서 수행합니다.
                     activity?.startActivityForResult(photoPickerIntent, PICK_PROFILE_FROM_ALBUM)
 
+                    //프로필 사진이 바뀌었을 시에 fragment를 reload 하는 구문입니다.
                     val ft = fragmentManager!!.beginTransaction()
                     ft.detach(this).attach(this).commit()
-                    //프로필 사진이 바뀌었을 시에 fragment를 reload 하는 구문입니다.
 
+                }
+
+
+                var mainActivity = (activity as MainActivity)
+                // 팀장 박신우 11/14 다이렉트 메세지 버튼 추가
+                mainActivity.toolbar_btn_direct_message.visibility = View.VISIBLE
+
+                /*
+                 메세지 버튼을 클릭하면 채팅방 목록을 나타내주는 프레그먼트로 이동합니다.
+                */
+                mainActivity.toolbar_btn_direct_message.setOnClickListener {
+
+                    val fragment = DirectMessageRoomListFragment()
+                    val bundle = Bundle()
+
+                    bundle.putString("currentUid", selectedUid)
+                    bundle.putString("currentUserEmail", selectedUserEmail)
+
+                    fragment.arguments = bundle
+
+                    activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
                 }
             }else{
                 // 사용자가 다른 유저의 사진을 클릭해서 다른 유저의 프로필 화면으로 넘어간 경우입니다.
@@ -128,7 +150,7 @@ class UserProfileFragment : Fragment() {
                 mainActivity.toolbar_btn_back.visibility = View.VISIBLE
                 // 팀장 박신우 11/7 스케쥴 확인 버튼 추가
                 mainActivity.toolbar_btn_schedule.visibility = View.VISIBLE
-                // 팀장 박신우 11/13 다이렉트 메세지 버튼 추가
+                // 팀장 박신우 11/14 다이렉트 메세지 버튼 추가
                 mainActivity.toolbar_btn_direct_message.visibility = View.VISIBLE
 
                 mainActivity.toolbar_username.visibility = View.VISIBLE

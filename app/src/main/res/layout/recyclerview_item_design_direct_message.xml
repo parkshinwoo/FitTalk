@@ -9,7 +9,6 @@
         android:id="@+id/left_DMbubble"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:background="@drawable/leftbubble"
         android:text="@string/chat_bubble"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -5,5 +5,6 @@ package fourpeopleforcolor.fittalk.data_trasfer_object
 
 data class UserDTO(
         var uid : String? = null,
-        var userEmail : String? = null
+        var userEmail : String? = null,
+        var timestamp : Long? = null
 )

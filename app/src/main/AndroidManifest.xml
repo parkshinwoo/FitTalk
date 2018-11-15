@@ -27,7 +27,7 @@
         <activity android:name=".navigation_activity.CommentActivity" />
         <activity android:name=".navigation_activity.UploadPhotoActivity" />
         <activity android:name=".navigation_activity.UploadScheduleActivity" />
-        <activity android:name=".navigation_activity.DirectMessageActivity" />
+        <activity android:name=".DirectMessageActivity" />
     </application>
 
 </manifest>

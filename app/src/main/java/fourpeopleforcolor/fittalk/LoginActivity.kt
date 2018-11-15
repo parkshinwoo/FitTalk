@@ -80,20 +80,25 @@ class LoginActivity : AppCompatActivity() {
                     // 계정 생성이 성공하면 메인 액티비티로 이동합니다.
                     // currentUser라는건 현재 회원가입 및 로그인을 시도하는 유저입니다. 즉 사용자이죠
 
-                    /* 2018년 11월 19일 팀장 박신우의 개발 메모입니다.
+                    /* 2018년 11월 12일 팀장 박신우의 개발 메모입니다.
                     계정을 생성할때 새롭게 생성된 사용자의 uid, 이메일 아이디를 데이터베이스에 저장합니다.
                     이 정보는 SearchFragment에서 이메일 아이디로 사용자를 검색할때 사용됩니다.
-
-                    verification의 필요성?
                      */
-                    var userDTO = UserDTO()
 
-                    userDTO.uid = auth?.currentUser?.uid
-                    userDTO.userEmail = auth?.currentUser?.email
+                    // verification
+                    if(auth?.currentUser?.uid.isNullOrBlank() || auth?.currentUser?.email.isNullOrBlank()){
+                        Toast.makeText(this, "유효한 이메일 계정과 비밀번호를 입력해주세요!", Toast.LENGTH_LONG)
+                    }else{
+                        var userDTO = UserDTO()
 
-                    firestore?.collection("users")?.document(userDTO.userEmail!!)?.set(userDTO)
+                        userDTO.uid = auth?.currentUser?.uid
+                        userDTO.userEmail = auth?.currentUser?.email
+                        userDTO.timestamp = System.currentTimeMillis()
 
-                    moveMainPage(auth?.currentUser)
+                        firestore?.collection("users")?.document(userDTO.userEmail!!)?.set(userDTO)
+
+                        moveMainPage(auth?.currentUser)
+                    }
                 }else if(task.exception?.message.isNullOrEmpty()){
                     // 예외가 발생하면 메세지를 찍어주는 기능입니다.
                     Toast.makeText(this,task.exception?.message, Toast.LENGTH_LONG).show()

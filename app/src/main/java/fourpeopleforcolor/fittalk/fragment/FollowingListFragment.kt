@@ -69,6 +69,8 @@ class FollowingListFragment : Fragment() {
         }
 
         var mainActivity = (activity as MainActivity)
+        mainActivity.toolbar_btn_back.visibility = View.GONE
+        mainActivity.toolbar_username.visibility = View.GONE
         mainActivity.toolbar_btn_schedule.visibility = View.GONE
         mainActivity.toolbar_btn_direct_message.visibility = View.GONE
 
@@ -99,6 +101,23 @@ class FollowingListFragment : Fragment() {
 
             firestore?.collection("follows")?.document(selectedUid!!)?.get()?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
+
+                    if(task.result.data.isEmpty()){
+                        Toast.makeText(activity!!,"이 사용자는 팔로워 수가 0입니다.", Toast.LENGTH_LONG).show()
+
+                        // 넘어가야할 프레그먼트인 유저 프로필 fragment
+                        var fragment = UserProfileFragment()
+                        var bundle = Bundle()
+
+                        bundle.putString("destinationUid", selectedUid)
+                        bundle.putString("userEmail", selectedUserEmail)
+
+                        fragment.arguments = bundle
+
+                        // 프레그먼트를 전환합니다.
+                        activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.main_content, fragment)?.commit()
+                    }
+
                     var followingDTO = task.result.toObject(FollowDTO::class.java)
 
                     if(followingDTO == null){
@@ -108,8 +127,8 @@ class FollowingListFragment : Fragment() {
                         Toast.makeText(activity!!,"이 사용자는 아무도 팔로우 하고 있지 않습니다.", Toast.LENGTH_LONG).show()
 
                         // 넘어가야할 프레그먼트인 유저 프로필 fragment
-                        val fragment = UserProfileFragment()
-                        val bundle = Bundle()
+                        var fragment = UserProfileFragment()
+                        var bundle = Bundle()
 
                         bundle.putString("destinationUid", selectedUid)
                         bundle.putString("userEmail", selectedUserEmail)
@@ -127,7 +146,7 @@ class FollowingListFragment : Fragment() {
 
         fun getUserInfo(followings: MutableMap<String, Boolean>) {
 
-            followingListenerRegistration = firestore?.collection("users")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+            followingListenerRegistration = firestore?.collection("users")?.orderBy("timestamp")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 if (querySnapshot == null) return@addSnapshotListener
 
                 userDTOs.clear()

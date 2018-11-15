@@ -171,7 +171,7 @@ class HomeFragment : Fragment() {
                 var bundle = Bundle()
 
                 bundle.putString("destinationUid", photoDTOs[position].uid)
-                bundle.putString("userId", photoDTOs[position].userEmail)
+                bundle.putString("userEmail", photoDTOs[position].userEmail)
 
                 fragment.arguments = bundle
                 activity!!.supportFragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit()

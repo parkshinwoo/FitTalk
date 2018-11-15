@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+
+    <ImageView
+        android:src="@drawable/ic_account"
+        android:id="@+id/direct_message_room_list_imageview_profile"
+        android:layout_margin="7.5dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp" />
+
+    <TextView
+        android:textStyle="bold"
+        android:layout_margin="7.5dp"
+        tools:text = "이메일 아이디"
+        android:id="@+id/direct_message_room_list_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

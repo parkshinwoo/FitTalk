@@ -155,9 +155,9 @@ class SearchFragment : Fragment() {
             // 사진을 클릭하면 사진을 올린 유저의 프로필 화면으로 넘어갑니다.
             imageView.setOnClickListener {
                 // 넘어가야할 프레그먼트인 유저 프로필 프레그먼트
-                val fragment = UserProfileFragment()
+                var fragment = UserProfileFragment()
                 // 프레그먼트 전환에는 bundle을 사용합니다.
-                val bundle = Bundle()
+                var bundle = Bundle()
 
                 // 선택된 사진을 올린 유저의 uid입니다.
                 // position 값에 클릭한 사진의 위치가 담겨 있습니다.
@@ -202,8 +202,8 @@ class SearchFragment : Fragment() {
                                     var uid = document.data["uid"].toString()
 
                                     // 넘어가야할 프레그먼트인 유저 프로필 프레그먼트
-                                    val fragment = UserProfileFragment()
-                                    val bundle = Bundle()
+                                    var fragment = UserProfileFragment()
+                                    var bundle = Bundle()
 
                                     bundle.putString("destinationUid", uid)
                                     bundle.putString("userEmail", email)
