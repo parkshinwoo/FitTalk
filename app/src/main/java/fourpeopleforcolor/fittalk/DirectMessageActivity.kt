@@ -44,17 +44,25 @@ class DirectMessageActivity : AppCompatActivity(){
 
         currentUserUid = intent.getStringExtra("currentUid")
         selectedUid = intent.getStringExtra("destinationUid")
-        //var title_alpha = currentUserUid + " " + selectedUid
+
         var title_alpha : String? = ""
         if(currentUserUid != null && selectedUid != null){
+            /*
+            11월 15일 팀장 박신우의 개발 메모입니다.
+            두 사용자간의 고유한 채팅방을 만들기 위해 사용자의 uid의 해쉬코드를 활용했습니다.
+             */
             title_alpha = (currentUserUid!!.hashCode() + selectedUid!!.hashCode()).toString()
         }
 
         guestUid = intent.getStringExtra("guestUid")
         ownerUid = intent.getStringExtra("ownerUid")
-        //var title_omega = guestUid + " " + ownerUid
+
         var title_omega : String? = ""
         if(guestUid != null && ownerUid != null){
+            /*
+            11월 15일 팀장 박신우의 개발 메모입니다.
+            두 사용자간의 고유한 채팅방을 만들기 위해 사용자의 uid의 해쉬코드를 활용했습니다.
+             */
             title_omega = (guestUid!!.hashCode() + ownerUid!!.hashCode()).toString()
         }
 
@@ -67,6 +75,7 @@ class DirectMessageActivity : AppCompatActivity(){
                     // 채팅창 생성
                     var direct_messageDTO = DirectMessageDTO()
                     direct_messageDTO.directMessageRoom[currentUserUid!!] = selectedUid.toString()
+                    direct_messageDTO.timestamp = System.currentTimeMillis()
                     FirebaseFirestore.getInstance()?.collection("directMessageRoom")?.document(title_alpha!!)?.set(direct_messageDTO)
 
                     // 채팅창 하위에 댓글 생성
@@ -111,7 +120,6 @@ class DirectMessageActivity : AppCompatActivity(){
 
             if(currentUserUid != null && selectedUid != null){
 
-                //var title_alpha = currentUserUid + " " + selectedUid
                 var title_alpha = (currentUserUid!!.hashCode() + selectedUid!!.hashCode()).toString()
 
                 directMessageSnapshot = FirebaseFirestore.getInstance().collection("directMessageRoom").document(title_alpha).collection("messages").orderBy("timestamp")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
@@ -136,7 +144,6 @@ class DirectMessageActivity : AppCompatActivity(){
 
             }else if(ownerUid != null && guestUid != null){
 
-                //var title_omega = guestUid + " " + ownerUid
                 var title_omega = (guestUid!!.hashCode() + ownerUid!!.hashCode()).toString()
 
                 directMessageSnapshot = FirebaseFirestore.getInstance().collection("directMessageRoom").document(title_omega).collection("messages").orderBy("timestamp")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->

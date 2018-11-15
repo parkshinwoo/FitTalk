@@ -25,8 +25,7 @@ import kotlinx.android.synthetic.main.recyclerview_item_design_direct_message_ro
 
 /*
 11월 14일 팀장 박신우의 개발 메모입니다.
-나의 프로필 화면에서 메세지 버튼을 누르면 나에게 다른 사용자들이 보낸 메세지들에 대한 채팅방의 목록이 뜨는 프레그먼트로 이동하게됩니다.
-그 채팅방의 목록을 구성하는 프레그먼트 입니다.
+채팅방의 목록을 구성하는 프레그먼트 입니다.
  */
 
 class DirectMessageRoomListFragment : Fragment() {
@@ -74,14 +73,15 @@ class DirectMessageRoomListFragment : Fragment() {
 
         val userDTOs : ArrayList<UserDTO>
         val tmpDTOs : ArrayList<UserDTO>
+        val directMessageDTO : ArrayList<DirectMessageDTO>
 
         init {
 
             userDTOs = ArrayList()
             tmpDTOs = ArrayList()
+            directMessageDTO = ArrayList()
 
-            // timestamp 필드 추가하고.. orderBy("timstamp")해야 다 가져 오네..
-            dmRoomListenerRegistration = firestore?.collection("directMessageRoom")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+            dmRoomListenerRegistration = firestore?.collection("directMessageRoom")?.orderBy("timestamp")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
 
                 if(querySnapshot == null) return@addSnapshotListener
 
@@ -100,15 +100,15 @@ class DirectMessageRoomListFragment : Fragment() {
 
                 for (snapshot in querySnapshot!!.documents){
                     var directMessageRoom = snapshot.toObject(DirectMessageDTO::class.java)
-                    // 이것도 DTO 타입의 ArrayList에 담아서 보내야 할 수도 있음
-                    getUserInfo(directMessageRoom)
+                    directMessageDTO.add(directMessageRoom)
+                    getUserInfo(directMessageDTO)
                 }
                 notifyDataSetChanged()
             }
 
         }
 
-        fun getUserInfo(directMessageRoom : DirectMessageDTO) {
+        fun getUserInfo(directMessageRoom: ArrayList<DirectMessageDTO>) {
 
             userListenerRegistration = firestore?.collection("users")?.orderBy("timestamp")?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 if(querySnapshot == null) return@addSnapshotListener
@@ -118,34 +118,31 @@ class DirectMessageRoomListFragment : Fragment() {
 
                 for(snapshot in querySnapshot!!.documents){
                     var item = snapshot.toObject(UserDTO::class.java)
-                    println(item.uid)
                     tmpDTOs.add(item)
                 }
                 notifyDataSetChanged()
 
                 var check_redundacy : String? = null
 
-                // 내가 받은 메세지에 대한 채팅방(상대방이 나한테 말을 걺으로써 개설된 채팅방)을 가져오기 위한 정보를 수집합니다.
-                // 메세지를 받는 사람의 uid가 현재 사용자의 uid와 일치할때
-                // 메세지를 보내는 사람의 uid와 일치하는 사용자의 정보만 담습니다.
-                if(directMessageRoom.directMessageRoom.containsValue(currentUserUid)) {
-
-                    for (i in tmpDTOs.iterator()) {
-                        if (directMessageRoom.directMessageRoom.containsKey(i.uid)) {
-                            userDTOs.add(i)
-                            check_redundacy = i.uid
+                for(dm in directMessageRoom.iterator()){
+                    if(dm.directMessageRoom.containsValue(currentUserUid)){
+                        for (tmp in tmpDTOs.iterator()) {
+                            if (dm.directMessageRoom.containsKey(tmp.uid)) {
+                                userDTOs.add(tmp)
+                                check_redundacy = tmp.uid
+                            }
                         }
                     }
                 }
 
-                // 내가 보낸 메세지에 대한 채팅방(내가 상대방에게 말을 걺으로써 개설된 채팅방)을 가져오기 위한 정보를 수집합니다.
-                if(directMessageRoom.directMessageRoom.containsKey(currentUserUid)) {
-
-                    for (i in tmpDTOs.iterator()) {
-                        if (directMessageRoom.directMessageRoom.containsValue(i.uid)) {
-                            if (check_redundacy.equals(i.uid)) {
-                            } else {
-                                userDTOs.add(i)
+                for(dm in directMessageRoom.iterator()){
+                    if(dm.directMessageRoom.containsKey(currentUserUid)) {
+                        for (tmp in tmpDTOs.iterator()) {
+                            if (dm.directMessageRoom.containsValue(tmp.uid)) {
+                                if (check_redundacy.equals(tmp.uid)) {
+                                } else {
+                                    userDTOs.add(tmp)
+                                }
                             }
                         }
                     }
