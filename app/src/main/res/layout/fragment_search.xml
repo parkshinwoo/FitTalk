@@ -22,6 +22,8 @@
             android:theme="@style/ButtonStyle"
             />
         <EditText
+            android:singleLine = "true"
+            android:lines = "1"
             android:hint="@string/search_hint"
             android:layout_margin="5dp"
             android:layout_toLeftOf="@+id/search_btn"

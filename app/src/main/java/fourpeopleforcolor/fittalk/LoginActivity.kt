@@ -3,6 +3,7 @@ package fourpeopleforcolor.fittalk
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.KeyEvent
 import android.widget.Toast
 import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -15,6 +16,14 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import fourpeopleforcolor.fittalk.data_trasfer_object.UserDTO
 import kotlinx.android.synthetic.main.activity_login.*
+import android.view.KeyEvent.KEYCODE_ENTER
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
+import fourpeopleforcolor.fittalk.R.id.editText
+
+
+
 
 // 2018년 9월 14일 팀장 박신우의 개발 메모입니다.
 // 코드 공유 및 프로젝트 버전 관리는 github와 sourcetree를 사용하기로 결정했습니다.
@@ -102,6 +111,7 @@ class LoginActivity : AppCompatActivity() {
                 }else if(task.exception?.message.isNullOrEmpty()){
                     // 예외가 발생하면 메세지를 찍어주는 기능입니다.
                     Toast.makeText(this,task.exception?.message, Toast.LENGTH_LONG).show()
+                    Toast.makeText(this,"예외",Toast.LENGTH_LONG).show()
                 }else{
                     //회원가입 성공도 아니고 실패도 아니면 기존에 이미 있는 계정으로 로그인을 시키면 되겠죠
                     signinEmail()
@@ -181,4 +191,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
+
 }

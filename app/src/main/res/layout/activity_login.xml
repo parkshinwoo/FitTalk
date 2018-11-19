@@ -28,6 +28,8 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:singleLine = "true"
+                android:lines = "1"
                 android:id="@+id/email_edittext"
                 android:hint="@string/email"
                 android:layout_width="match_parent"
@@ -42,6 +44,8 @@
             android:layout_height="wrap_content">
 
             <EditText
+                android:singleLine = "true"
+                android:lines = "1"
                 android:id="@+id/password_edittext"
                 android:inputType="textPassword"
                 android:hint="@string/password"

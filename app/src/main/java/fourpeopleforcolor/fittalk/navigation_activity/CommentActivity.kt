@@ -27,15 +27,21 @@ class CommentActivity : AppCompatActivity() {
     var user : FirebaseAuth? = null
     var destinationUid : String? = null
 
+    var firestore : FirebaseFirestore? = null
+
     // 2018년 11월 9일 팀장 박신우의 개발 메모입니다. Fcm, 즉 파이어베이스 클라우드 메세징을 위한 변수를 향후 추가하고 백그라운드 푸쉬알람을 구현해야합니다.
 
     var commentSnapshot : ListenerRegistration? = null
+
+    var imageListenerRegistration: ListenerRegistration? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_comment)
 
         user = FirebaseAuth.getInstance()
+
+        firestore = FirebaseFirestore.getInstance()
 
         // 이미지 컬렉션 정보를 가져옵니다.
         // activity일때는 intent를 쓰고 fragment일때는 arguments를 쓴다는 점을 구분해주세요
@@ -64,6 +70,15 @@ class CommentActivity : AppCompatActivity() {
 
             // 댓글 달기 버튼을 누르고 나면 기존에 있던 내용은 초기화
             comment_edit_message.setText("")
+        }
+
+        getImage()
+    }
+
+    fun getImage(){
+        imageListenerRegistration = firestore?.collection("images")?.document(photoUid!!)?.addSnapshotListener { documentSnapshot, firebaseFirestoreException ->
+            var url = documentSnapshot?.data!!["imageUrl"]
+            Glide.with(this).load(url).into(main_image)
         }
     }
 

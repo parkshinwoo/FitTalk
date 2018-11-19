@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -178,9 +179,9 @@ class SearchFragment : Fragment() {
             // 검색화면에서 찾고자 하는 사용자의 이메일 아이디를 입력하고 검색 버튼을 클릭하면 해당 유저의 프로필로 이동합니다.
             search_btn.setOnClickListener {
 
-                if(search_user_email.text.isNullOrBlank()){
+                if (search_user_email.text.isNullOrBlank()) {
                     Toast.makeText(context, "찾고자 하는 사용자의 이메일 아이디를 입력해주세요!", Toast.LENGTH_LONG).show()
-                }else{
+                } else {
                     // search_user_email에 사용자가 입력한 이메일 아이디가 존재하는지 먼저 조회합니다.
                     // 존재하지 않으면 존재하지 않는다는 토스트 메세지를 띄우고
                     // 존재한다면 그 유저의 프로필 화면으로 fragment를 전환해줍니다.
@@ -191,13 +192,12 @@ class SearchFragment : Fragment() {
                     사용자가 검색할때 입력한 이메일과 동일한 이메일 값을 갖는 컬렉션에서 uid를 뽑아옵니다.
                     뽑아온 uid와 email을 이용해서 fragment를 전환하면 됩니다.
                      */
-                    FirebaseFirestore.getInstance().collection("users").whereEqualTo("userEmail", email).get().addOnCompleteListener {
-                        task: Task<QuerySnapshot> ->
-                        if(task.isSuccessful){
-                            if(task.result.isEmpty){
+                    FirebaseFirestore.getInstance().collection("users").whereEqualTo("userEmail", email).get().addOnCompleteListener { task: Task<QuerySnapshot> ->
+                        if (task.isSuccessful) {
+                            if (task.result.isEmpty) {
                                 Toast.makeText(context, "찾으시는 사용자는 존재하지 않습니다!", Toast.LENGTH_LONG).show()
-                            } else{
-                                for(document in task.result){
+                            } else {
+                                for (document in task.result) {
                                     // 찾는 이메일과 일치하는 이메일이 있는 데이터에서 uid를 뽑아옵니다.
                                     var uid = document.data["uid"].toString()
 
@@ -238,23 +238,8 @@ class SearchFragment : Fragment() {
 
                 true
             }
-
-            /**
-             * by 팀원 김민지
-             * 이미지를 한번 클릭하면 해당 user의 profile 로 이동.
-             * 이미지를 꾹 누르면 comment화면 활성화 를 유도하려 했지만
-             * fragment -> activity 로 전환 시에 intent가 오류가 나서 주석 처리로 남겨둡니다.
-             *
-             * uid와 timestamp 비교해서 일치하는 사진의 comment 화면을 불러오도록 함.
-             * **/
-        /*   fun imageClicked(){
-                imageView.setOnLongClickListener(){
-                    val intent = Intent(activity, CommentActivity::class.java)
-                    intent.putExtra("fileId",photoDTOs[position].timestamp)
-                    intent.putExtra("Uid",photoDTOs[position].uid)
-                    activity.startActivity(intent)
-                }
-            }*/
         }
     }
+
+
 }
