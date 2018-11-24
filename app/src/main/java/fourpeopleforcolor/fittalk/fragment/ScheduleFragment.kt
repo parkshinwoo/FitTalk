@@ -1,22 +1,36 @@
 package fourpeopleforcolor.fittalk.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import fourpeopleforcolor.fittalk.MainActivity
 import fourpeopleforcolor.fittalk.R
+import fourpeopleforcolor.fittalk.navigation_activity.CommentActivity
+import fourpeopleforcolor.fittalk.navigation_activity.UploadScheduleActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_schedule.*
 import kotlinx.android.synthetic.main.fragment_schedule.view.*
 
 /*
 * selectedUid 값 이용해서 계획만 띄우면 됩니다.
 */
+/*
+* 11월 24일 팀원 김민지 입니다.
+* 기존에 있던 bottom navigation 에 있던 schedule 버튼을 upload schedule activity에서
+* fragment schedule 호출로 변경하였습니다.
+* 또한 fragment schedule에서 upload schedule activity로 갈 수 있는 버튼을 구현하였습니다.
+*
+* */
 
 class ScheduleFragment : Fragment() {
 
@@ -44,6 +58,13 @@ class ScheduleFragment : Fragment() {
         currentUserUid = auth?.currentUser?.uid
         fragmentView = inflater.inflate(R.layout.fragment_schedule, container, false)
 
+
+
+        fragmentView?.upload_schedule?.setOnClickListener {
+            var intent = Intent(fragmentView?.context, UploadScheduleActivity::class.java)
+            startActivity(intent)
+            true
+        }
         if (arguments != null) {
             // arguments가 null이 아니라면 넘어온 값이 있는 것입니다.
             // 선택된 사람의 uid
@@ -71,7 +92,6 @@ class ScheduleFragment : Fragment() {
                         }
                         if (result.data["dayOfWeek"] == "화요일") {
                             fragmentView?.schedule_tue?.text = result.data["schedule"].toString()
-
                         }
                         if (result.data["dayOfWeek"] == "수요일") {
                             fragmentView?.schedule_wed?.text = result.data["schedule"].toString()
@@ -95,6 +115,7 @@ class ScheduleFragment : Fragment() {
                 }
             }
         }
+
         return fragmentView
     }
 }

@@ -6,25 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".fragment.ScheduleFragment">
 
-  <android.support.v7.widget.Toolbar
-      android:id="@+id/my_toolbar"
-      android:layout_width="match_parent"
-      android:layout_height="35dp"
-      android:background="@color/colorWhite">
-    <ImageView
-        android:src="@drawable/logo_title"
+    <Button
+        android:id="@+id/upload_schedule"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-  </android.support.v7.widget.Toolbar>
-
-  <LinearLayout
-      android:id="@+id/toolbar_division"
-      android:layout_width="match_parent"
-      android:layout_height="1dp"
-      android:layout_below="@+id/my_toolbar"
-      android:background="@color/colorDivision"
-      android:orientation="horizontal">
-  </LinearLayout>
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:textColor="@color/babyPink"
+        android:text="@string/upload_schedule" />
 
   <android.support.design.widget.TextInputLayout
       android:layout_width="314dp"
@@ -250,5 +238,13 @@
       android:background="@color/orangePink"
       android:textColor="@color/colorWhite"
       android:layout_alignLeft="@+id/tue" />
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical">
+
+
+  </LinearLayout>
 
 </RelativeLayout>

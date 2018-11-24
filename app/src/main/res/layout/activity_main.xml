@@ -20,6 +20,7 @@
 
             <ImageView
                 android:id="@+id/toolbar_btn_back"
+                android:contentDescription="@string/no_image"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_alignParentLeft="true"
@@ -40,10 +41,18 @@
                 android:id="@+id/toolbar_title_image"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:src="@drawable/logo_title" />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:contentDescription="@string/no_image"
+                android:src="@drawable/logo_title"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="0dp" />
 
             <ImageView
                 android:id="@+id/toolbar_btn_schedule"
+                android:contentDescription="@string/no_image"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_alignParentEnd="true"
@@ -55,6 +64,7 @@
 
             <ImageView
                 android:id="@+id/toolbar_btn_direct_message"
+                android:contentDescription="@string/no_image"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_alignParentTop="true"

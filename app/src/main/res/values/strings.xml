@@ -4,7 +4,7 @@
     <!-- Sign In -->
     <string name="email">이메일</string>
     <string name="password">비밀번호</string>
-    <string name="signin_email">이메일 계정 생성 및 로그인</string>
+    <string name="signin_email">로그인 또는 계정 생성 및 로그인</string>
     <string name="signin_google">Google 계정으로 로그인</string>
     <string name="signin_facebook">Facebook 계정으로 로그인</string>
     <string name="signup_complete">회원가입 성공</string>
@@ -79,6 +79,7 @@
 
     <!-- Toolbar -->
     <string name="back">Back</string>
+    <string name="no_image">no_image</string>
 
     <!-- etc -->
     <item name="visible" type="id" />

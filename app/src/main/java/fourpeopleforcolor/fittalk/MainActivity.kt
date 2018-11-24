@@ -15,10 +15,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import fourpeopleforcolor.fittalk.fragment.AlarmFragment
-import fourpeopleforcolor.fittalk.fragment.HomeFragment
-import fourpeopleforcolor.fittalk.fragment.SearchFragment
-import fourpeopleforcolor.fittalk.fragment.UserProfileFragment
+import fourpeopleforcolor.fittalk.fragment.*
 import fourpeopleforcolor.fittalk.navigation_activity.ChatbotActivity
 import fourpeopleforcolor.fittalk.navigation_activity.UploadPhotoActivity
 import fourpeopleforcolor.fittalk.navigation_activity.UploadScheduleActivity
@@ -93,8 +90,18 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
             R.id.action_upload_schedule -> {
 
-                startActivity(Intent(this, UploadScheduleActivity::class.java))
+                //startActivity(Intent(this, UploadScheduleActivity::class.java))
+                var scheduleFragment = ScheduleFragment()
 
+
+
+                val uid = FirebaseAuth.getInstance().currentUser!!.uid
+
+                val bundle = Bundle()
+
+                bundle.putString("destinationUid", uid)
+                scheduleFragment.arguments = bundle
+                supportFragmentManager.beginTransaction().replace(R.id.main_content,scheduleFragment).commit()
                 return true
             }
             R.id.action_alarm -> {
