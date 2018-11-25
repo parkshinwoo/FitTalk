@@ -1,259 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".navigation_activity.UploadScheduleActivity">
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".navigation_activity.UploadScheduleActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:background="@color/colorWhite">
-        <ImageView
-            android:src="@drawable/logo_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
-        android:id="@+id/toolbar_division"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/my_toolbar"
-        android:background="@color/colorDivision"
-        android:orientation="horizontal">
-    </LinearLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/editText_mon"
-        android:layout_width="314dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="40dp"
-        android:layout_alignParentRight="true">
-
-        <EditText
-            android:id="@+id/upload_schedule_mon"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:gravity="top"
-            android:hint="@string/hint_schedule_content" />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <TextView
-        android:id="@+id/mon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="56dp"
-        android:text="월"
-        android:background="@color/orangePink"
-        android:textColor="@color/colorWhite"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:orientation="vertical"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="29dp" />
+        android:layout_marginLeft="0dp">
 
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:textSize="24dp"
+            android:text="일정 등록" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/editText_tue"
-        android:layout_width="314dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="100dp"
-        android:layout_alignParentRight="true">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:textSize="20dp"
+            android:text="해야할 운동" />
 
         <EditText
-            android:id="@+id/upload_schedule_tue"
+            android:id="@+id/schedule_todo"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:gravity="top"
-            android:hint="@string/hint_schedule_content" />
+            android:layout_height="129dp"
+            android:ems="10"
+            android:inputType="textMultiLine" />
 
-    </android.support.design.widget.TextInputLayout>
-
-
-    <TextView
-        android:id="@+id/tue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/mon"
-        android:layout_marginTop="116dp"
-        android:text="화"
-        android:background="@color/orangePink"
-        android:textColor="@color/colorWhite"
-        android:layout_alignLeft="@+id/mon" />
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/editText_wed"
-        android:layout_width="314dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="160dp"
-        android:layout_alignParentRight="true">
-
-        <EditText
-            android:id="@+id/upload_schedule_wed"
+        <TextView
+            android:id="@+id/textView3"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:gravity="top"
-            android:hint="@string/hint_schedule_content" />
+            android:layout_height="37dp"
+            android:textSize="20dp"
+            android:text="섭취한 음식" />
 
-    </android.support.design.widget.TextInputLayout>
-    <TextView
-        android:id="@+id/wed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tue"
-        android:layout_marginTop="176dp"
-        android:text="수"
-        android:background="@color/orangePink"
-        android:textColor="@color/colorWhite"
-        android:layout_alignLeft="@+id/tue" />
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/editText_thu"
-        android:layout_width="314dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-
-        android:layout_marginTop="220dp"
-        android:layout_alignParentRight="true">
-
-        <EditText
-            android:id="@+id/upload_schedule_thu"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:gravity="top"
-            android:hint="@string/hint_schedule_content" />
+            android:layout_height="47dp"
+            android:orientation="horizontal">
 
-    </android.support.design.widget.TextInputLayout>
-    <TextView
-        android:id="@+id/thu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tue"
-        android:layout_marginTop="234dp"
-        android:text="목"
-        android:background="@color/orangePink"
-        android:textColor="@color/colorWhite"
-        android:layout_alignLeft="@+id/tue" />
+            <EditText
+                android:id="@+id/search_food_text"
+                android:layout_width="285dp"
+                android:layout_height="match_parent" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/editText_fri"
-        android:layout_width="314dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="280dp"
-        android:layout_alignParentRight="true">
+            <Button
+                android:id="@+id/search_food_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="찾기" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/upload_schedule_fri"
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:gravity="top"
-            android:hint="@string/hint_schedule_content" />
+            android:layout_height="wrap_content" />
 
-    </android.support.design.widget.TextInputLayout>
-    <TextView
-        android:id="@+id/fri"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tue"
+        <Button
+            android:id="@+id/upload_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="등록" />
 
-        android:layout_marginTop="296dp"
-        android:text="금"
-        android:background="@color/orangePink"
-        android:textColor="@color/colorWhite"
-        android:layout_alignLeft="@+id/tue" />
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/editText_sat"
-        android:layout_width="314dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-
-        android:layout_marginTop="340dp"
-        android:layout_alignParentRight="true">
-
-        <EditText
-            android:id="@+id/upload_schedule_sat"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:gravity="top"
-            android:hint="@string/hint_schedule_content" />
-
-    </android.support.design.widget.TextInputLayout>
-    <TextView
-        android:id="@+id/sat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tue"
-
-        android:layout_marginTop="356dp"
-        android:text="토"
-        android:background="@color/orangePink"
-        android:textColor="@color/colorWhite"
-        android:layout_alignLeft="@+id/tue" />
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/editText_sun"
-        android:layout_width="314dp"
-        android:layout_height="50dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-
-        android:layout_marginTop="400dp"
-        android:layout_alignParentRight="true">
-
-        <EditText
-            android:id="@+id/upload_schedule_sun"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:gravity="top"
-            android:hint="@string/hint_schedule_content" />
-
-    </android.support.design.widget.TextInputLayout>
-    <TextView
-        android:id="@+id/sun"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/tue"
-
-        android:layout_marginTop="416dp"
-        android:text="일"
-        android:background="@color/orangePink"
-        android:textColor="@color/colorWhite"
-        android:layout_alignLeft="@+id/tue" />
-
-    <Button
-        android:id="@+id/upload_schedule_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="26dp"
-        android:background="@color/coral"
-        android:textColor="@color/colorWhite"
-        android:text="@string/upload_schedule"
-        android:theme="@style/ButtonStyle" />
-
+    </LinearLayout>
 </RelativeLayout>

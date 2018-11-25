@@ -30,6 +30,10 @@ import kotlinx.android.synthetic.main.fragment_schedule.view.*
 * fragment schedule 호출로 변경하였습니다.
 * 또한 fragment schedule에서 upload schedule activity로 갈 수 있는 버튼을 구현하였습니다.
 *
+* 11월 26일 팀원 김민지 입니다.
+* schedule부분을 전체적으로 고쳤기 때문에 해당 fragment는 현재 사용하지 않습니다.
+* 이 부분은 추후에 주간 스케줄을 띄우는 용도로 사용하면 좋을 것 같습니다.
+*
 * */
 
 class ScheduleFragment : Fragment() {

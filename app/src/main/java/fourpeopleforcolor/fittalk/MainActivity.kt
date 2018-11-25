@@ -20,6 +20,7 @@ import fourpeopleforcolor.fittalk.navigation_activity.ChatbotActivity
 import fourpeopleforcolor.fittalk.navigation_activity.UploadPhotoActivity
 import fourpeopleforcolor.fittalk.navigation_activity.UploadScheduleActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_calendar.*
 
 // 하단 네비게이션 바에 있는 아이콘을 클릭하면 해당 액티비티, 프레그먼트로 이동합니다.
 
@@ -93,15 +94,13 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 //startActivity(Intent(this, UploadScheduleActivity::class.java))
                 var scheduleFragment = ScheduleFragment()
 
-
-
                 val uid = FirebaseAuth.getInstance().currentUser!!.uid
+                var calendarFragment = CalendarFragment()
+               // val bundle = Bundle()
 
-                val bundle = Bundle()
-
-                bundle.putString("destinationUid", uid)
-                scheduleFragment.arguments = bundle
-                supportFragmentManager.beginTransaction().replace(R.id.main_content,scheduleFragment).commit()
+               // bundle.putString("destinationUid", uid)
+                //calendarFragment.arguments = bundle
+                supportFragmentManager.beginTransaction().replace(R.id.main_content,calendarFragment).commit()
                 return true
             }
             R.id.action_alarm -> {

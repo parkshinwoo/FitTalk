@@ -59,6 +59,9 @@ dependencies {
 
     // 파이어베이스 클라우드 메세징
     implementation 'com.google.firebase:firebase-messaging:12.0.1'
+
+    //웹파싱을 위한 jsoup 모듈
+    implementation 'org.jsoup:jsoup:1.11.3'
 }
 
 apply plugin: 'com.google.gms.google-services'
