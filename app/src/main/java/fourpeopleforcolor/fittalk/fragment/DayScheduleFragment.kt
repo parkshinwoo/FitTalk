@@ -41,13 +41,18 @@ class DayScheduleFragment : Fragment() {
 
     var contents : TextView? = null
 
+    var food : TextView? = null
+    var food_kcal : TextView? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
         currentUserUid = auth?.currentUser?.uid
         fragmentView = inflater.inflate(R.layout.fragment_day_schedule, container, false)
-        contents = fragmentView?.findViewById<TextView>(R.id.textView)
+        contents = fragmentView?.findViewById(R.id.textView)
+        food = fragmentView?.findViewById(R.id.text_food)
+        food_kcal = fragmentView?.findViewById(R.id.text_food_kcal)
 
         selectedDate=arguments?.getString("year")+"-"+arguments?.getString("month")+"-"+arguments?.getString("dayofMonth")
 
@@ -73,6 +78,8 @@ class DayScheduleFragment : Fragment() {
                     if (result.data["uid"] == currentUserUid) {
                         if(result.data["date"]==selectedDate){
                             contents?.setText(result.data["schedule"].toString())
+                            food?.setText(result.data["food"].toString())
+                            food_kcal?.setText(result.data["food_kcal"].toString())
                         }
                     }
 

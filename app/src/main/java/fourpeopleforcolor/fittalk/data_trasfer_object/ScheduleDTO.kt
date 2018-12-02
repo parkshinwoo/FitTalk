@@ -5,5 +5,7 @@ data class ScheduleDTO(var uid: String? = null,
                     var userEmail: String? = null,
                     var date: String? = null,
                     var schedule: String? = null,
+                    var food: String? = null,
+                    var food_kcal: String?= null,
                     var timestamp: Long? = null
 )
