@@ -18,9 +18,7 @@ import com.google.firebase.storage.FirebaseStorage
 import fourpeopleforcolor.fittalk.fragment.*
 import fourpeopleforcolor.fittalk.navigation_activity.ChatbotActivity
 import fourpeopleforcolor.fittalk.navigation_activity.UploadPhotoActivity
-import fourpeopleforcolor.fittalk.navigation_activity.UploadScheduleActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_calendar.*
 
 // 하단 네비게이션 바에 있는 아이콘을 클릭하면 해당 액티비티, 프레그먼트로 이동합니다.
 
